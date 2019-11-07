@@ -1,4 +1,4 @@
-# Fabe browser tests
+# Fabe browser tests [![CircleCI](https://circleci.com/gh/forallabeautifulearth/fabe-browser-tests/tree/master.svg?style=svg)](https://circleci.com/gh/forallabeautifulearth/fabe-browser-tests/tree/master)
 
 > End-to-end browser tests for [fab.earth](https://fab.earth) using [Cypress.io](https://www.cypress.io) test runner.
 
