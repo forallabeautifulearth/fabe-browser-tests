@@ -1,0 +1,29 @@
+{
+  "name": "fabe-site",
+  "author": "fabe",
+  "version": "1.1.0",
+  "description": "for all a beautiful earth",
+  "link": "https://fab.earth",
+  "scripts": {
+    "test": "cypress run",
+    "e2e": "cypress open",
+    "warn-only": "stop-only --warn --folder cypress/integration",
+    "stop-only": "stop-only --folder cypress/integration",
+    "format": "prettier --write '**/*.js'"
+  },
+  "devDependencies": {
+    "@percy/cypress": "^2.0.1",
+    "as-a": "^1.3.1",
+    "cypress": "3.4.1",
+    "cypress-failed-log": "2.5.1",
+    "husky": "3.0.5",
+    "prettier": "1.18.2",
+    "stop-only": "3.1.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run warn-only",
+      "pre-push": "npm run stop-only"
+    }
+  }
+}

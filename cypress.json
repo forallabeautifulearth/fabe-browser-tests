@@ -1,0 +1,14 @@
+{
+  "baseUrl": "https://fabedev02.forallabeautiful.earth/ords",
+  "chromeWebSecurity": false,
+  "modifyObstructiveCode": false,
+  "projectId": "yiny4d",
+  "videoCompression": false,
+  "env": {
+    "userEmail": "cypress@fab.earth",
+    "userPassword": "",
+    "adminUsername": "test_admin",
+    "adminPassword": "",
+    "adminReaderUsername": "test_reader"
+  }
+}

@@ -1,0 +1,17 @@
+# Folders
+node_modules
+dist
+
+# any sensitive files from https://github.com/bahmutov/as-a
+.as-a.ini
+
+# Mac
+.DS_Store
+
+# Logs
+logs
+*.log
+npm-debug.log*
+# Cypress test artifacts
+cypress/videos
+cypress/screenshots
