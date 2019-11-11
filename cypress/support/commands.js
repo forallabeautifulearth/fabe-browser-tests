@@ -67,6 +67,9 @@ Cypress.Commands.add("setUpAuth", (url, pageNum, valid_session) => {
   expect(valid_session, "session").to.be.a("number");
 
   let authUrl = url + pageNum + ":" + valid_session; //+ ":::" + pageNum;
+  if (url === "/f?p=200:") {
+    authUrl += ":app::::"
+  }
   cy.visit(authUrl);
 
   // wait for the loading splash screen to go away
@@ -176,6 +179,47 @@ Cypress.Commands.add("confirmItem", (itemName, page_name) => {
   //cy.contains(".t-Alert--success", "Saved").should("not.be.visible");
   cy.contains("td", itemName).should("be.visible");
 });
+
+//an alternative to userLoginSetup - currently configured for app 200
+Cypress.Commands.add("login", () => {
+  const loginPage = "/f?p=200:LOGIN";
+  const pUserEmail = Cypress.env("userEmail");
+  const pPassword = Cypress.env("userPassword");
+  var loggedInPage
+  // sanity check - did we pass the login info
+  // via cypress.json and environment variables?!
+  expect(pUserEmail, "user email").to.be.a("string").and.be.not.empty;
+  expect(pPassword, "user password").to.be.a("string").and.be.not.empty;
+
+  cy.clearCookies();
+  cy.server();
+  cy.route("POST", "/ords/wwv_flow.accept").as("login");
+  cy.visit(loginPage);
+  // cy.openWindow(loginPage)
+  cy.clearCookie("LOGIN_USERNAME_COOKIE");
+  cy.getCy("login_email")
+    .clear({ force: true })
+    .should("be.empty");
+  //for reasons that I can't explain, this causes the page to reload and we need to grab the element again
+  cy.wait(500);
+  cy.getCy("login_email")
+    .clear({ force: true })
+    .should("be.empty")
+    .type(pUserEmail, { force: true });
+  cy.getCy("password")
+    .clear({ force: true })
+    .should("be.empty")
+    .type(pPassword, { force: true })
+    .should("have.value", pPassword);
+  cy.getCy("sign_inButton").click();
+  cy.wait(["@login"]);
+  cy.get(".fabe-tab-home.brand-logo > img").should("exist");
+  cy.url().should('contain', ':1:')
+    .then(($url) => {
+      window.loggedInPage = $url
+    })
+  Cypress.Cookies.preserveOnce('ORA_WWV_APP_200')
+})
 
 //
 // A couple of small utilities to encourage good selectors.

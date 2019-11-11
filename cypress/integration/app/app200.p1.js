@@ -25,12 +25,13 @@ context("App 200 page 1", () => {
   //  cy.get("#StatsContainer").should("be.visible");
   //};
 
-  beforeEach(function() {
-    cy.userLoginSetup(1);
-    cy.getCy("fa-home_link").should("exist");
-    cy.getCy("fa-home_link").click({ force: true });
+  before(function () {
+    cy.login()
     cy.get(".fabe-tab-home.brand-logo").should("be.visible");
   });
+  beforeEach(function () {
+    cy.visit(loggedInPage)
+  })
 
   it("Execute action", () => {
     cy.get(".fabe-action-execute-birdhand")
