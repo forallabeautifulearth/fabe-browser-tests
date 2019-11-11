@@ -1,5 +1,6 @@
 {
   "baseUrl": "https://fabedev02.forallabeautiful.earth/ords",
+  "defaultCommandTimeout": 30000,
   "chromeWebSecurity": false,
   "modifyObstructiveCode": false,
   "projectId": "yiny4d",
