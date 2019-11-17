@@ -49,7 +49,7 @@ context("App 200 page 9991 - sign up", () => {
 
   it("user already registered error", () => {
     typeCy("signup_email", pUserEmail, "#P9991_SIGNUP_EMAIL_LABEL");
-    cy.getCy("nextButton").click();
+    cy.get("[data-cy=submitButton]").click();
     cy.contains(".t-Alert", "already registered").should("exist");
 
     cy.percySnapshot();
@@ -57,7 +57,7 @@ context("App 200 page 9991 - sign up", () => {
 
   it("successful signup", () => {
     typeCy("signup_email", pUserEmail2, "#P9991_SIGNUP_EMAIL_LABEL");
-    cy.getCy("nextButton").click();
+    cy.get("[data-cy=submitButton]").click();
 
     // on the middle step finds a couple of actions
     // !! the below has been commented out until gitlab ticket #732 has been addressed
@@ -66,9 +66,10 @@ context("App 200 page 9991 - sign up", () => {
     //cy.getCy("skip_and_submitButton").click();
     //cy.wait("@accept");
 
-    cy.url().should("include", "NO:RP");
+    //the below was commented out for ticket #735
+    //cy.url().should("include", "NO:RP");
 
-    cy.getCy("get_startedButton").should("be.visible");
+    //cy.getCy("get_startedButton").should("be.visible");
     cy.percySnapshot("Get started after signup");
   });
 });
