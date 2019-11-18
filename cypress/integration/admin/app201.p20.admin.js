@@ -20,12 +20,11 @@ context("App 201 (Admin) p20 - Actions", () => {
       .type(deleteName)
       .should("have.value", deleteName);
 
-    //the below is commented out because of issue #734
-    //getIframeBody().then(cy.submitModal);
-    //
-    //closeIframeModal();
-    //
-    //cy.get(".a-Toolbar-inputText").type("Delete {enter}");
-    //cy.confirmItem(deleteName, page_name);
+    getIframeBody().then(cy.submitModal);
+
+    closeIframeModal();
+
+    cy.get(".a-Toolbar-inputText").type("Delete {enter}");
+    cy.confirmItem(deleteName, page_name);
   });
 });

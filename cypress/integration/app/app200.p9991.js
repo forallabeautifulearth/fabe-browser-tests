@@ -59,17 +59,9 @@ context("App 200 page 9991 - sign up", () => {
     typeCy("signup_email", pUserEmail2, "#P9991_SIGNUP_EMAIL_LABEL");
     cy.get("[data-cy=submitButton]").click();
 
-    // on the middle step finds a couple of actions
-    // !! the below has been commented out until gitlab ticket #732 has been addressed
-    //cy.get(".fabe-action-plan-card").should("have.length.gt", 2);
-    //cy.route("POST", "/ords/wwv_flow.accept").as("accept");
-    //cy.getCy("skip_and_submitButton").click();
-    //cy.wait("@accept");
+    cy.url().should("include", "NO:RP");
 
-    //the below was commented out for ticket #735
-    //cy.url().should("include", "NO:RP");
-
-    //cy.getCy("get_startedButton").should("be.visible");
+    cy.getCy("get_startedButton").should("be.visible");
     cy.percySnapshot("Get started after signup");
   });
 });
