@@ -20,3 +20,6 @@ workflows:
       - cypress/run:
           no-workspace: true
           store_artifacts: true
+          post-steps:
+            - store_test_results:
+                path: cypress/results
