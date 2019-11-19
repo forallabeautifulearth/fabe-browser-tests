@@ -25,13 +25,13 @@ context("App 200 page 1", () => {
   //  cy.get("#StatsContainer").should("be.visible");
   //};
 
-  before(function () {
-    cy.login()
+  before(function() {
+    cy.login();
     cy.get(".fabe-tab-home.brand-logo").should("be.visible");
   });
-  beforeEach(function () {
-    cy.visit(loggedInPage)
-  })
+  beforeEach(function() {
+    cy.visit(loggedInPage);
+  });
 
   it("Execute action", () => {
     cy.get(".fabe-action-execute-birdhand")
@@ -40,7 +40,7 @@ context("App 200 page 1", () => {
         force: true
       });
     cy.get(".toast").should("be.visible");
-    cy.get(".frequency-action-execute-user-count:first")
+    cy.get(".action-execute-count:first")
       .invoke("text")
       .then(text => {
         expect(parseInt(text.trim())).to.be.a("number");
@@ -56,14 +56,14 @@ context("App 200 page 1", () => {
     cy.get(".toast").should("be.visible");
     var acount;
     var bcount;
-    cy.get(".frequency-action-execute-user-count:first")
+    cy.get(".action-execute-count:first")
       .invoke("text")
       .then(text => {
         acount = parseInt(text.trim());
         expect(acount).to.be.a("number");
       });
     cy.get(".toast-action").click({ force: true });
-    cy.get(".frequency-action-execute-user-count:first")
+    cy.get(".action-execute-count:first")
       .invoke("text")
       .then(text => {
         bcount = parseInt(text.trim());
