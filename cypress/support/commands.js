@@ -24,15 +24,26 @@ Cypress.Commands.add("adminLoginSetup", (pageNum, username, password) => {
 
   cy.request(`/website/bypass/login/${username}/${password}`)
     .its("body")
-    .then(({ app_session, cookie_value }) => {
-      // confirm that we got valid response from the server
-      expect(app_session, "app session").to.be.a("number");
-      expect(cookie_value, "cookie value").to.be.a("string");
+    .then(
+      ({
+        app_session,
+        cookie_value,
+        idle_timeout_on,
+        life_timeout_on,
+        sysdate
+      }) => {
+        // confirm that we got valid response from the server
+        expect(app_session, "app session").to.be.a("number");
+        expect(cookie_value, "cookie value").to.be.a("string");
+        expect(idle_timeout_on, "idle_timeout_on").to.be.a("string");
+        expect(life_timeout_on, "life_timeout_on").to.be.a("string");
+        expect(sysdate, "sysdate").to.be.a("string");
 
-      cy.setCookie("ORA_WWV_APP_201", cookie_value);
-      const url = "/f?p=201:";
-      cy.setUpAuth(url, pageNum, app_session);
-    });
+        cy.setCookie("ORA_WWV_APP_201", cookie_value);
+        const url = "/f?p=201:";
+        cy.setUpAuth(url, pageNum, app_session);
+      }
+    );
 });
 
 //userLoginSetup is used to bypass the login in the app
@@ -47,17 +58,28 @@ Cypress.Commands.add("userLoginSetup", (pageNum, password) => {
 
   cy.request(`/website/bypass/login/${userEmail}/${password}`)
     .its("body")
-    .then(({ app_session, cookie_value }) => {
-      // confirm that we got valid response from the server
-      expect(app_session, "app session").to.be.a("number");
-      expect(cookie_value, "cookie value").to.be.a("string");
+    .then(
+      ({
+        app_session,
+        cookie_value,
+        idle_timeout_on,
+        life_timeout_on,
+        sysdate
+      }) => {
+        // confirm that we got valid response from the server
+        expect(app_session, "app session").to.be.a("number");
+        expect(cookie_value, "cookie value").to.be.a("string");
+        expect(idle_timeout_on, "idle_timeout_on").to.be.a("string");
+        expect(life_timeout_on, "life_timeout_on").to.be.a("string");
+        expect(sysdate, "sysdate").to.be.a("string");
 
-      cy.setCookie("ORA_WWV_APP_200", cookie_value);
-      cy.setCookie("LOGIN_USERNAME_COOKIE", userEmail);
+        cy.setCookie("ORA_WWV_APP_200", cookie_value);
+        cy.setCookie("LOGIN_USERNAME_COOKIE", userEmail);
 
-      const url = "/f?p=200:";
-      cy.setUpAuth(url, pageNum, app_session);
-    });
+        const url = "/f?p=200:";
+        cy.setUpAuth(url, pageNum, app_session);
+      }
+    );
 });
 
 //setUpAuth is used for both admin and app tests to bypass the login
@@ -68,7 +90,7 @@ Cypress.Commands.add("setUpAuth", (url, pageNum, valid_session) => {
 
   let authUrl = url + pageNum + ":" + valid_session; //+ ":::" + pageNum;
   if (url === "/f?p=200:") {
-    authUrl += ":app::::"
+    authUrl += ":app::::";
   }
   cy.visit(authUrl);
 
@@ -185,7 +207,7 @@ Cypress.Commands.add("login", () => {
   const loginPage = "/f?p=200:LOGIN";
   const pUserEmail = Cypress.env("userEmail");
   const pPassword = Cypress.env("userPassword");
-  var loggedInPage
+  var loggedInPage;
   // sanity check - did we pass the login info
   // via cypress.json and environment variables?!
   expect(pUserEmail, "user email").to.be.a("string").and.be.not.empty;
@@ -214,12 +236,13 @@ Cypress.Commands.add("login", () => {
   cy.getCy("sign_inButton").click();
   cy.wait(["@login"]);
   cy.get(".fabe-tab-home.brand-logo > img").should("exist");
-  cy.url().should('contain', ':1:')
-    .then(($url) => {
-      window.loggedInPage = $url
-    })
-  Cypress.Cookies.preserveOnce('ORA_WWV_APP_200')
-})
+  cy.url()
+    .should("contain", ":1:")
+    .then($url => {
+      window.loggedInPage = $url;
+    });
+  Cypress.Cookies.preserveOnce("ORA_WWV_APP_200");
+});
 
 //
 // A couple of small utilities to encourage good selectors.
