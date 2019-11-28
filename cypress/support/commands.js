@@ -211,7 +211,12 @@ Cypress.Commands.add("login", () => {
   // sanity check - did we pass the login info
   // via cypress.json and environment variables?!
   expect(pUserEmail, "user email").to.be.a("string").and.be.not.empty;
-  expect(pPassword, "user password").to.be.a("string").and.be.not.empty;
+
+  // security tip: do not use "expect" here - it will print the contents
+  // in the command log (visible in screenshots and video)
+  if (typeof pPassword !== "string" || !pPassword) {
+    throw new Error("Missing password");
+  }
 
   cy.clearCookies();
   cy.server();
@@ -231,8 +236,9 @@ Cypress.Commands.add("login", () => {
   cy.getCy("password")
     .clear({ force: true })
     .should("be.empty")
-    .type(pPassword, { force: true })
-    .should("have.value", pPassword);
+    // security tip: do not print the password in the command log
+    .type(pPassword, { force: true, log: false });
+
   cy.getCy("sign_inButton").click();
   cy.wait(["@login"]);
   cy.get(".fabe-tab-home.brand-logo > img").should("exist");
