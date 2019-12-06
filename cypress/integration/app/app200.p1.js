@@ -27,11 +27,13 @@ context("App 200 page 1", () => {
 
   before(function() {
     cy.login();
-    cy.server();
-    cy.route("POST", "/ords/wwv_flow.ajax").as("load");
     cy.get("[data-cy=fa-home_link]").should("be.visible");
   });
   beforeEach(function() {
+    cy.server();
+    cy.route("POST", "/ords/wwv_flow.ajax").as("load");
+    cy.clearCookies();
+    cy.setCookie("ORA_WWV_APP_200", appCookie);
     cy.visit(loggedInPage);
     cy.get("[data-cy=fa-home_link]").click();
     //cy.get('[data-cy=fa-home_link]').clic
@@ -101,7 +103,7 @@ context("App 200 page 1", () => {
         expect(text).to.equal("Follow");
       });
     cy.get("#ActionPlanFollowing").click();
-    cy.wait("@load");
+    //cy.wait("@load");
     //cy.reload();
     cy.get("#ActionPlanFollowing")
       .invoke("text")
