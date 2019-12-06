@@ -102,7 +102,7 @@ context("App 200 page 1", () => {
       });
     cy.get("#ActionPlanFollowing").click();
     cy.wait("@load");
-    cy.reload();
+    //cy.reload();
     cy.get("#ActionPlanFollowing")
       .invoke("text")
       .then(text => {
