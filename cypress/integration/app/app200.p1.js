@@ -87,7 +87,7 @@ context("App 200 page 1", () => {
     cy.url().should("contain", "P0_ACTION_ID");
   });
 
-  it.only("follow an action plan", () => {
+  it("follow an action plan", () => {
     cy.get(".action-plan-name")
       .first()
       .click();
