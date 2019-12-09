@@ -27,7 +27,7 @@ context("App 200 page 1", () => {
 
   before(function() {
     cy.login();
-    cy.get("[data-cy=fa-home_link]").should("be.visible");
+    cy.getCy("fa-home_link").should("be.visible");
   });
   beforeEach(function() {
     cy.server();
@@ -35,8 +35,7 @@ context("App 200 page 1", () => {
     cy.clearCookies();
     cy.setCookie("ORA_WWV_APP_200", appCookie);
     cy.visit(loggedInPage);
-    cy.get("[data-cy=fa-home_link]").click();
-    //cy.get('[data-cy=fa-home_link]').clic
+    cy.getCy("fa-home_link").click();
   });
 
   it("Execute action", () => {
@@ -95,7 +94,7 @@ context("App 200 page 1", () => {
       .click();
     cy.url().should("contain", "P1_ACTION_PLAN_ID");
     //cy.wait("@load");
-    cy.wait(1000);
+    cy.wait(500);
     cy.get("#ActionPlanFollowing")
       .invoke("text")
       .then(text => {
@@ -103,15 +102,15 @@ context("App 200 page 1", () => {
         expect(text).to.equal("Follow");
       });
     cy.get("#ActionPlanFollowing").click();
-    //cy.wait("@load");
-    //cy.reload();
-    cy.get("#ActionPlanFollowing")
+    cy.wait("@load");
+    cy.get('[data-cy="remind_me!Button"]').click();
+    cy.wait(500);
+    cy.getCy("action_plan_followingButton")
       .invoke("text")
       .then(text => {
         console.log("text 2 :" + text);
         //waiting on https://gitlab.com/forallabeautifulearth/fabe-site/issues/761
-        //expect(text).to.equal("Following");
+        expect(text).to.equal("Following");
       });
-    //cy.get(".toast").should("be.visible");
   });
 });
