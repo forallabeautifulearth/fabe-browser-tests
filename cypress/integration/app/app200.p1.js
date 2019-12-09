@@ -27,10 +27,15 @@ context("App 200 page 1", () => {
 
   before(function() {
     cy.login();
-    cy.get(".fabe-tab-home.brand-logo").should("be.visible");
+    cy.getCy("fa-home_link").should("be.visible");
   });
   beforeEach(function() {
+    cy.server();
+    cy.route("POST", "/ords/wwv_flow.ajax").as("load");
+    cy.clearCookies();
+    cy.setCookie("ORA_WWV_APP_200", appCookie);
     cy.visit(loggedInPage);
+    cy.getCy("fa-home_link").click();
   });
 
   it("Execute action", () => {
@@ -81,5 +86,31 @@ context("App 200 page 1", () => {
       .first()
       .click({ force: true });
     cy.url().should("contain", "P0_ACTION_ID");
+  });
+
+  it("follow an action plan", () => {
+    cy.get(".action-plan-name")
+      .first()
+      .click();
+    cy.url().should("contain", "P1_ACTION_PLAN_ID");
+    //cy.wait("@load");
+    cy.wait(500);
+    cy.get("#ActionPlanFollowing")
+      .invoke("text")
+      .then(text => {
+        //console.log("text :" + text);
+        expect(text).to.equal("Follow");
+      });
+    cy.get("#ActionPlanFollowing").click();
+    cy.wait("@load");
+    cy.get('[data-cy="remind_me!Button"]').click();
+    cy.wait(500);
+    cy.getCy("action_plan_followingButton")
+      .invoke("text")
+      .then(text => {
+        console.log("text 2 :" + text);
+        //waiting on https://gitlab.com/forallabeautifulearth/fabe-site/issues/761
+        expect(text).to.equal("Following");
+      });
   });
 });

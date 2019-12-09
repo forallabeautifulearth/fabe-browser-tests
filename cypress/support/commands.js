@@ -247,7 +247,9 @@ Cypress.Commands.add("login", () => {
     .then($url => {
       window.loggedInPage = $url;
     });
-  Cypress.Cookies.preserveOnce("ORA_WWV_APP_200");
+  cy.getCookie("ORA_WWV_APP_200").then($cookie => {
+    window.appCookie = $cookie.value;
+  });
 });
 
 //
