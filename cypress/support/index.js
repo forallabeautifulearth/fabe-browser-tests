@@ -7,4 +7,4 @@ import "@percy/cypress";
  * https://github.com/bahmutov/cypress-failed-log
  */
 import "cypress-failed-log";
-import './commands'
+import "./commands";

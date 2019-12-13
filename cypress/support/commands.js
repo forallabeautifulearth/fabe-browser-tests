@@ -202,6 +202,14 @@ Cypress.Commands.add("confirmItem", (itemName, page_name) => {
   cy.contains("td", itemName).should("be.visible");
 });
 
+Cypress.Commands.overwrite("visit", (cyVisit, url) => {
+  cyVisit(url, {
+    onBeforeLoad(win) {
+      delete win.navigator.__proto__.serviceWorker;
+    }
+  });
+});
+
 //an alternative to userLoginSetup - currently configured for app 200
 Cypress.Commands.add("login", () => {
   const loginPage = "/f?p=200:LOGIN";
