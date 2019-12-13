@@ -80,7 +80,7 @@ context("App 200 page 1", () => {
       });
   });
 
-  it.only("open and review action info text modal", () => {
+  it("open and review action info text modal", () => {
     var actionName;
     cy.get(".fabe-action-card:first")
       .find(".card-title")
