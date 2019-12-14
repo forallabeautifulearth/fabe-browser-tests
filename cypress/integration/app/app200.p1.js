@@ -89,7 +89,9 @@ context("App 200 page 1", () => {
         actionName = $action;
         expect(actionName).to.be.a("string").and.not.be.empty;
       });
-    cy.get(".fabe-action-card:first").click();
+    cy.get(".fabe-action-card")
+      .first()
+      .click();
     cy.url().should("contain", "P0_ACTION_ID");
     cy.get(".action-details-name")
       .invoke("text")
