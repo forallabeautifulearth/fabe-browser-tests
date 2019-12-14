@@ -82,16 +82,19 @@ context("App 200 page 1", () => {
 
   it("open and review action info text modal", () => {
     var actionName;
-    cy.get(".fabe-action-card:first")
+    //cy.get(".fabe-action-card:first") --> somehow this is flakey?
+    cy.get(
+      "#ActionPopularReport > .ma-region-body > :nth-child(1) > :nth-child(2) > .fabe-action-card"
+    )
       .find(".card-title")
       .invoke("text")
       .then($action => {
         actionName = $action;
         expect(actionName).to.be.a("string").and.not.be.empty;
       });
-    cy.get(".fabe-action-card")
-      .first()
-      .click();
+    cy.get(
+      "#ActionPopularReport > .ma-region-body > :nth-child(1) > :nth-child(2) > .fabe-action-card"
+    ).click();
     cy.url().should("contain", "P0_ACTION_ID");
     cy.get(".action-details-name")
       .invoke("text")
