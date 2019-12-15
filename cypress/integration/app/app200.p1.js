@@ -81,7 +81,7 @@ context("App 200 page 1", () => {
       });
   });
 
-  it("open and review action info text modal", () => {
+  it("open and review action info text", () => {
     var cardNo = 1 + Math.floor(Math.random() * 8);
     expect(cardNo).to.be.within(2, 9);
     var actionName;
