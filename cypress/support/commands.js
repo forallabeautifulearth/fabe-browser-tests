@@ -267,6 +267,12 @@ Cypress.Commands.add("getCy", s => {
   return cy.get(selector);
 });
 
+Cypress.Commands.add("containsCy", (s, text) => {
+  expect(text, "passed text to find").to.be.a("string");
+  const selector = `[data-cy=${s}]`;
+  return cy.contains(selector, text);
+});
+
 /**
  * Find element that is a child of another element using "data-cy=x" attribute.
  *

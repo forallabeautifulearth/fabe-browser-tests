@@ -9,8 +9,6 @@ context("App 200 page 1", () => {
     cy.getCy("fa-home_link").should("be.visible");
   });
   beforeEach(function() {
-    cy.server();
-    cy.route("POST", "/ords/wwv_flow.ajax").as("load");
     cy.clearCookies();
     cy.setCookie("ORA_WWV_APP_200", appCookie);
     cy.visit(loggedInPage);
@@ -60,25 +58,25 @@ context("App 200 page 1", () => {
   });
 
   it("follow an action plan", () => {
-    var waitTime = 1000;
     cy.get(".action-plan-name:first").click();
     cy.url().should("contain", "P1_ACTION_PLAN_ID");
-    cy.wait(waitTime);
-    cy.get("#ActionPlanFollowing")
-      .invoke("text")
-      .then(text => {
-        expect(text).to.equal("Follow");
-      });
+    cy.getCy("action_plan_followingButton").should("be.visible");
+    cy.containsCy("action_plan_followingButton", "Follow").should("be.visible");
+
     cy.get("#ActionPlanFollowing").click();
-    cy.wait("@load");
+    cy.contains(
+      "#ActionPlanRemindersModal-title",
+      "Action plan reminders"
+    ).should("be.visible");
     cy.get('[data-cy="remind_me!Button"]').click();
-    cy.wait(waitTime);
-    cy.getCy("action_plan_followingButton")
-      .invoke("text")
-      .then(text => {
-        console.log("text 2 :" + text);
-        expect(text).to.equal("Following");
-      });
+    cy.contains(
+      "#ActionPlanRemindersModal-title",
+      "Action plan reminders"
+    ).should("not.be.visible");
+
+    cy.containsCy("action_plan_followingButton", "Following").should(
+      "be.visible"
+    );
   });
 
   it("open and review action info text", () => {
