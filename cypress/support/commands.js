@@ -21,6 +21,9 @@ Cypress.Commands.add("adminLoginSetup", (pageNum, username, password) => {
     password = Cypress.env("adminPassword");
   }
   expect(username, "admin username").to.be.a("string").and.be.not.empty;
+  if (!password) {
+    throw new Error("Missing admin password");
+  }
 
   cy.request(`/website/bypass/login/${username}/${password}`)
     .its("body")
