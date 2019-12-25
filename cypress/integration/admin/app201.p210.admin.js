@@ -1,11 +1,24 @@
 context("testing mantras page", () => {
+  const page_name = "mantra";
   it("add a row to ig", () => {
     cy.adminLoginSetup(210);
-
-    // cy.contains("button", "Reset").click();
-
+    cy.get("[data-action=reset-report]").then($btn => {
+      var disAttr = $btn.attr("disabled");
+      if (disAttr == "disabled") {
+        console.log("disabled");
+      } else {
+        console.log("not disabled");
+        cy.contains("button", "Reset").click();
+        cy.wait("@refresh");
+        cy.get("body").then($body => {
+          console.log($body);
+        });
+        //cy.get(".js-confirmBtn").click();
+      }
+    });
+    cy.scrollTo("top");
     cy.get("[data-action=selection-add-row]").click();
-
+    cy.scrollTo("top");
     const label = "Test action " + Cypress._.random(1e6);
 
     cy.focused()
@@ -15,8 +28,6 @@ context("testing mantras page", () => {
 
     cy.contains("button", "Save").click();
     cy.get("#mantras_ig_toolbar_search_field").type(label + "{enter}");
-    // cy.pause();
-    // cy.get("td#mantras_ig_grid_vc_cur").type("Delete me test");
-    //.should("have.value", "Delete me test")
+    cy.confirmItem(label, page_name);
   });
 });
