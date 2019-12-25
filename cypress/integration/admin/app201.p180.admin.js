@@ -26,7 +26,9 @@ context("test p180", () => {
     getIframeDom()
       .find("[data-cy=cancelButton]")
       .click();
-    cy.get("#species_search_field").type("Delete {enter}");
+    //cy.scrollTo("top");
+    cy.get(".t-HeroRegion-title").should("contain", "Species");
+    cy.get("#species_search_field").type(deleteName + "{enter}");
     cy.confirmItem(deleteName, page_name);
   });
 });
