@@ -12,7 +12,13 @@ context("test p180", () => {
   const page_name = "species";
   it("create species", () => {
     cy.adminLoginSetup(page_number);
-    //cy.verifyNotThere(deleteName);
+    cy.get(".t-Body-contentInner").then($filter => {
+      var filterCount = $filter.find(".a-IRR-controls-cell--remove").length;
+      if (filterCount > 0) {
+        cy.get(".a-IRR-controls-cell--remove").click();
+        cy.wait("@refresh");
+      }
+    });
     cy.openCreateModal();
     cy.get("iframe").then(function($iframe) {
       const $body = $iframe.contents().find("body");
@@ -26,9 +32,13 @@ context("test p180", () => {
     getIframeDom()
       .find("[data-cy=cancelButton]")
       .click();
+    cy.get("iframe").should("not.exist");
     //cy.scrollTo("top");
     cy.get(".t-HeroRegion-title").should("contain", "Species");
-    cy.get("#species_search_field").type(deleteName + "{enter}");
+    cy.wait("@refresh");
+    cy.get("#species_search_field")
+      .type(deleteName + "{enter}")
+      .should("have.value", deleteName);
     cy.confirmItem(deleteName, page_name);
   });
 });
