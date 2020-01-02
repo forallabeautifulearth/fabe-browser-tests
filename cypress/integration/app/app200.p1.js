@@ -12,7 +12,21 @@ context("App 200 page 1", () => {
     cy.clearCookies();
     cy.setCookie("ORA_WWV_APP_200", appCookie);
     cy.visit(loggedInPage);
-    cy.getCy("fa-home_link").click();
+    cy.get(".env-display").should("contain", "{dev}");
+    cy.getCy("fa-home_link").should("be.visible");
+    cy.wait(500);
+    cy.url()
+      .should("contain", "p=200:1:")
+      .then($url => {
+        console.log($url);
+        if ($url.includes("ACTION")) {
+          console.log("not home page");
+          cy.getCy("fa-home_link").click();
+        } else {
+          console.log("home page");
+        }
+      });
+    cy.get(".apex-logo-img").should("be.visible");
   });
 
   it("Execute action", () => {
@@ -80,6 +94,9 @@ context("App 200 page 1", () => {
   });
 
   it("open and review action info text", () => {
+    cy.url().then($url => {
+      console.log($url);
+    });
     var cardNo = 2 + Math.floor(Math.random() * 7);
     expect(cardNo).to.be.within(2, 9);
     var actionName;
