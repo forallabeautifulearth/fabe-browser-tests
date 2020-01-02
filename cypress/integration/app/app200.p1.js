@@ -32,15 +32,15 @@ context("App 200 page 1", () => {
     cy.get(".fabe-action-execute-birdhand:first").click({
       force: true
     });
-    //cy.get(".toast").should("be.visible");
-    //cy.get(".action-execute-count:first")
-    //  .invoke("text")
-    //  .then(text => {
-    //    expect(parseInt(text.trim())).to.be.a("number");
-    //  });
+    cy.get(".toast").should("be.visible");
+    cy.get(".action-execute-count:first")
+      .invoke("text")
+      .then(text => {
+        expect(parseInt(text.trim())).to.be.a("number");
+      });
   });
 
-  it.skip("Do / Undo execute action", () => {
+  it("Do / Undo execute action", () => {
     cy.get(".fabe-action-execute-birdhand:first").click({
       force: true
     });
@@ -63,7 +63,7 @@ context("App 200 page 1", () => {
       });
   });
 
-  it.skip("Explore actions by 'action plans'", () => {
+  it("Explore actions by 'action plans'", () => {
     cy.get(".action-plan-name:first").click();
     cy.url().should("contain", "P1_ACTION_PLAN_ID");
     cy.get(".fabe-action-execute-stats:first").click({ force: true });
