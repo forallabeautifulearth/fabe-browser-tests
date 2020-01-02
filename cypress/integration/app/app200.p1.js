@@ -8,28 +8,32 @@ context("App 200 page 1", () => {
     cy.login();
     cy.getCy("fa-home_link").should("be.visible");
   });
-  beforeEach(function() {
+  //beforeEach(function() {
+  //  cy.clearCookies();
+  //  cy.setCookie("ORA_WWV_APP_200", appCookie);
+  //  cy.visit(loggedInPage);
+  //  cy.get(".env-display").should("contain", "{dev}");
+  //  cy.getCy("fa-home_link").should("be.visible");
+  //  cy.wait(500);
+  //  cy.url()
+  //    .should("contain", "p=200:1:")
+  //    .then($url => {
+  //      console.log($url);
+  //      if ($url.includes("ACTION")) {
+  //        console.log("not home page");
+  //        cy.getCy("fa-home_link").click();
+  //      } else {
+  //        console.log("home page");
+  //      }
+  //    });
+  //  cy.get(".apex-logo-img").should("be.visible");
+  //});
+  it("basic", () => {
     cy.clearCookies();
     cy.setCookie("ORA_WWV_APP_200", appCookie);
     cy.visit(loggedInPage);
-    cy.get(".env-display").should("contain", "{dev}");
-    cy.getCy("fa-home_link").should("be.visible");
-    cy.wait(500);
-    cy.url()
-      .should("contain", "p=200:1:")
-      .then($url => {
-        console.log($url);
-        if ($url.includes("ACTION")) {
-          console.log("not home page");
-          cy.getCy("fa-home_link").click();
-        } else {
-          console.log("home page");
-        }
-      });
-    cy.get(".apex-logo-img").should("be.visible");
   });
-
-  it("Execute action", () => {
+  it.skip("Execute action", () => {
     cy.get(".fabe-action-execute-birdhand:first").click({
       force: true
     });
@@ -41,7 +45,7 @@ context("App 200 page 1", () => {
       });
   });
 
-  it("Do / Undo execute action", () => {
+  it.skip("Do / Undo execute action", () => {
     cy.get(".fabe-action-execute-birdhand:first").click({
       force: true
     });
@@ -64,14 +68,14 @@ context("App 200 page 1", () => {
       });
   });
 
-  it("Explore actions by 'action plans'", () => {
+  it.skip("Explore actions by 'action plans'", () => {
     cy.get(".action-plan-name:first").click();
     cy.url().should("contain", "P1_ACTION_PLAN_ID");
     cy.get(".fabe-action-execute-stats:first").click({ force: true });
     cy.url().should("contain", "P0_ACTION_ID");
   });
 
-  it("follow an action plan", () => {
+  it.skip("follow an action plan", () => {
     cy.get(".action-plan-name:first").click();
     cy.url().should("contain", "P1_ACTION_PLAN_ID");
     cy.getCy("action_plan_followingButton").should("be.visible");
@@ -93,7 +97,7 @@ context("App 200 page 1", () => {
     );
   });
 
-  it("open and review action info text", () => {
+  it.skip("open and review action info text", () => {
     cy.url().then($url => {
       console.log($url);
     });
