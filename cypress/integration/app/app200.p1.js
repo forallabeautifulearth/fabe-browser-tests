@@ -8,31 +8,27 @@ context("App 200 page 1", () => {
     cy.login();
     cy.getCy("fa-home_link").should("be.visible");
   });
-  //beforeEach(function() {
-  //  cy.clearCookies();
-  //  cy.setCookie("ORA_WWV_APP_200", appCookie);
-  //  cy.visit(loggedInPage);
-  //  cy.get(".env-display").should("contain", "{dev}");
-  //  cy.getCy("fa-home_link").should("be.visible");
-  //  cy.wait(500);
-  //  cy.url()
-  //    .should("contain", "p=200:1:")
-  //    .then($url => {
-  //      console.log($url);
-  //      if ($url.includes("ACTION")) {
-  //        console.log("not home page");
-  //        cy.getCy("fa-home_link").click();
-  //      } else {
-  //        console.log("home page");
-  //      }
-  //    });
-  //  cy.get(".apex-logo-img").should("be.visible");
-  //});
-  it("basic", () => {
+  beforeEach(function() {
     cy.clearCookies();
     cy.setCookie("ORA_WWV_APP_200", appCookie);
     cy.visit(loggedInPage);
+    cy.get(".env-display").should("contain", "{dev}");
+    cy.getCy("fa-home_link").should("be.visible");
+    cy.wait(500);
+    cy.url()
+      .should("contain", "p=200:1:")
+      .then($url => {
+        console.log($url);
+        if ($url.includes("ACTION")) {
+          console.log("not home page");
+          cy.getCy("fa-home_link").click();
+        } else {
+          console.log("home page");
+        }
+      });
+    cy.get(".apex-logo-img").should("be.visible");
   });
+  it("basic", () => {});
   it.skip("Execute action", () => {
     cy.get(".fabe-action-execute-birdhand:first").click({
       force: true
