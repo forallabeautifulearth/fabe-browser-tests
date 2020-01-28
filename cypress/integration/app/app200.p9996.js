@@ -1,4 +1,4 @@
-context("App 200 page 9996", () => {
+context.skip("App 200 page 9996", () => {
   it("remembers me", () => {
     cy.userLoginSetup(9996);
     const pUserEmail = Cypress.env("userEmail");
