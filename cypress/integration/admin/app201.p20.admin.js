@@ -11,7 +11,7 @@ context("App 201 (Admin) p20 - Actions", () => {
   const page_number = 20;
   const page_name = "actions";
 
-  it("Create new Action", () => {
+  it.skip("Create new Action", () => {
     cy.adminLoginSetup(20);
     cy.openCreateModal(deleteName);
 
@@ -20,11 +20,11 @@ context("App 201 (Admin) p20 - Actions", () => {
       .type(deleteName)
       .should("have.value", deleteName);
 
-    getIframeBody().then(cy.submitModal);
-
-    closeIframeModal();
-
-    cy.get(".a-Toolbar-inputText").type("Delete {enter}");
-    cy.confirmItem(deleteName, page_name);
+    //getIframeBody().then(cy.submitModal);
+    //
+    //closeIframeModal();
+    //
+    //cy.get(".a-Toolbar-inputText").type("Delete {enter}");
+    //cy.confirmItem(deleteName, page_name);
   });
 });

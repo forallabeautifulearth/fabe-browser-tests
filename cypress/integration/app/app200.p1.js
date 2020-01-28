@@ -1,4 +1,4 @@
-context("App 200 page 1", () => {
+context.skip("App 200 page 1", () => {
   /**
    * Confirms that there are actions and click on the first one.
    * Confirms that the action is displayed after clicking.

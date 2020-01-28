@@ -27,7 +27,7 @@ context("App 200 login test", () => {
         .type(pUserEmail, { force: true });
     });
 
-    it("plain login", () => {
+    it.skip("plain login", () => {
       cy.getCy("password")
         .clear({ force: true })
         .should("be.empty")
@@ -39,7 +39,7 @@ context("App 200 login test", () => {
       cy.url().should("contain", ":1:");
     });
 
-    it("wrong password", () => {
+    it.skip("wrong password", () => {
       const badPassword = "blerg";
       cy.getCy("password")
         .clear()

@@ -1,4 +1,4 @@
-context("App 200 page 9991 - sign up", () => {
+context.skip("App 200 page 9991 - sign up", () => {
   const pUserEmail = Cypress.env("userEmail");
   const pUserEmail2 = "fake@fab.earth";
   const deleteName = "Delete me (test)";
