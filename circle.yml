@@ -1,25 +1,7 @@
 version: 2.1
 orbs:
-  # see https://github.com/cypress-io/circleci-orb
   cypress: cypress-io/cypress@1
 workflows:
   build:
     jobs:
-      - cypress/run:
-          no-workspace: true
-          store_artifacts: true
-  nightly:
-    triggers:
-      - schedule:
-          cron: "0 0 * * *"
-          filters:
-            branches:
-              only:
-                - master
-    jobs:
-      - cypress/run:
-          no-workspace: true
-          store_artifacts: true
-          post-steps:
-            - store_test_results:
-                path: cypress/results
+      - cypress/run
