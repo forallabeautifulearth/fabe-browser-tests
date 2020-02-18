@@ -7,5 +7,5 @@ workflows:
       - cypress/run
     # be explicit about setting cache folder
     # https://github.com/cypress-io/circleci-orb/issues/98
-  environment:
-    CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
+    environment:
+      CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
