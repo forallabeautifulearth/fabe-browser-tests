@@ -1,11 +1,25 @@
 version: 2.1
 orbs:
-  cypress: cypress-io/cypress@1
+  # see https://github.com/cypress-io/circleci-orb
+  cypress: cypress-io/cypress@1.13.0
 workflows:
   build:
     jobs:
-      - cypress/run
-    # be explicit about setting cache folder
-    # https://github.com/cypress-io/circleci-orb/issues/98
-    environment:
-      CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
+      - cypress/run:
+          no-workspace: true
+          store_artifacts: true
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - cypress/run:
+          no-workspace: true
+          store_artifacts: true
+          post-steps:
+            - store_test_results:
+                path: cypress/results
