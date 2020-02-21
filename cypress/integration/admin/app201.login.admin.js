@@ -40,6 +40,12 @@ context("App 201 (Admin) login", () => {
       .should("have.value", badPassword);
     cy.getCy("sign_inButton").click();
     cy.wait("@login");
+    cy.url()
+      .should("contain", ":9999:")
+      .then($url => {
+        cy.visit($url.replace("/__/", "/ords/")); //necessary due to #redirectmalfunction
+      });
+
     cy.get(".t-Alert-content").should("be.visible");
   });
 });
