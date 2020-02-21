@@ -2,7 +2,6 @@ context("App 201 (Admin) login", () => {
   const loginPage = "/f?p=201:LOGIN_DESKTOP";
   const pUsername = Cypress.env("adminUsername");
   const pPassword = Cypress.env("adminPassword");
-  var loggedInPage;
 
   beforeEach(() => {
     // sanity check - did we pass the login info
@@ -32,7 +31,7 @@ context("App 201 (Admin) login", () => {
     cy.url().should("contain", ":1:");
   });
 
-  it.only("wrong password", () => {
+  it("wrong password", () => {
     const badPassword = "blerg";
     cy.getCy("password")
       .clear()
