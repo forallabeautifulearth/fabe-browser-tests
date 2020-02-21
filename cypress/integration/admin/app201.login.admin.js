@@ -2,6 +2,7 @@ context("App 201 (Admin) login", () => {
   const loginPage = "/f?p=201:LOGIN_DESKTOP";
   const pUsername = Cypress.env("adminUsername");
   const pPassword = Cypress.env("adminPassword");
+  var loggedInPage;
 
   beforeEach(() => {
     // sanity check - did we pass the login info
@@ -31,7 +32,7 @@ context("App 201 (Admin) login", () => {
     cy.url().should("contain", ":1:");
   });
 
-  it("wrong password", () => {
+  it.only("wrong password", () => {
     const badPassword = "blerg";
     cy.getCy("password")
       .clear()
@@ -40,6 +41,12 @@ context("App 201 (Admin) login", () => {
       .should("have.value", badPassword);
     cy.getCy("sign_inButton").click();
     cy.wait("@login");
+    cy.url()
+      .should("contain", ":9999:")
+      .then($url => {
+        cy.visit($url.replace("/__/", "/ords/"));
+      });
+
     cy.get(".t-Alert-content").should("be.visible");
   });
 });
