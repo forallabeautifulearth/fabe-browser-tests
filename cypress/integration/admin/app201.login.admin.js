@@ -43,7 +43,7 @@ context("App 201 (Admin) login", () => {
     cy.url()
       .should("contain", ":9999:")
       .then($url => {
-        cy.visit($url.replace("/__/", "/ords/"));
+        cy.visit($url.replace("/__/", "/ords/")); //necessary due to #redirectmalfunction
       });
 
     cy.get(".t-Alert-content").should("be.visible");
