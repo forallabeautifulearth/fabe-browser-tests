@@ -244,11 +244,13 @@ Cypress.Commands.add("login", () => {
 
   cy.getCy("sign_inButton").click();
   cy.wait(["@login"]);
-  cy.get(".fabe-tab-home.brand-logo > img").should("exist");
+  //cy.get(".fabe-tab-home.brand-logo > img").should("exist");
   cy.url()
     .should("contain", ":1:")
     .then($url => {
       window.loggedInPage = $url;
+      window.loggedInPage = window.loggedInPage.replace("/__/", "/ords/");
+      //cy.visit(window.loggedInPage); //necessary due to #redirectmalfunction
     });
   cy.getCookie("ORA_WWV_APP_200").then($cookie => {
     window.appCookie = $cookie.value;

@@ -1,4 +1,6 @@
-context.skip("App 200 page 1", () => {
+context("App 200 page 1", () => {
+  const deleteSeq = Cypress._.random(1e6, 2e6).toString();
+  const deleteName = `Delete me (test ${deleteSeq})`;
   /**
    * Confirms that there are actions and click on the first one.
    * Confirms that the action is displayed after clicking.
@@ -6,7 +8,7 @@ context.skip("App 200 page 1", () => {
 
   before(function() {
     cy.login();
-    cy.getCy("fa-home_link").should("be.visible");
+    //cy.getCy("fa-home_link").should("be.visible");
   });
   beforeEach(function() {
     cy.clearCookies();
@@ -15,19 +17,35 @@ context.skip("App 200 page 1", () => {
     cy.getCy("fa-home_link").click();
   });
 
-  it("Execute action", () => {
-    cy.get(".fabe-action-execute-birdhand:first").click({
-      force: true
-    });
-    cy.get(".toast").should("be.visible");
-    cy.get(".action-execute-count:first")
-      .invoke("text")
-      .then(text => {
-        expect(parseInt(text.trim())).to.be.a("number");
-      });
+  it.skip("Execute action", () => {
+    cy.get(".fabe-action-execute-birdhand:first");
+    //.click({
+    //  force: true
+    //});
+    //cy.get(".toast").should("be.visible");
+    //cy.get(".action-execute-count:first")
+    //  .invoke("text")
+    //  .then(text => {
+    //    expect(parseInt(text.trim())).to.be.a("number");
+    //  });
   });
 
-  it("Do / Undo execute action", () => {
+  it("like a post", () => {
+    cy.get(".e-FeedPost--like:first")
+      .click()
+      .should("have.class", "active");
+  });
+
+  it("comment on a post", () => {
+    cy.get(".e-FeedPost--details:first").click({ force: true });
+    cy.url().should("contain", "P0_FEED_POST_ID");
+    cy.get("#FeedPostCommentMessage")
+      .type(deleteName)
+      .should("have.value", deleteName);
+    cy.get(".mdc-icon-button__icon").click();
+  });
+
+  it.skip("Do / Undo execute action", () => {
     cy.get(".fabe-action-execute-birdhand:first").click({
       force: true
     });
@@ -50,14 +68,14 @@ context.skip("App 200 page 1", () => {
       });
   });
 
-  it("Explore actions by 'action plans'", () => {
-    cy.get(".action-plan-name:first").click();
-    cy.url().should("contain", "P1_ACTION_PLAN_ID");
-    cy.get(".fabe-action-execute-stats:first").click({ force: true });
-    cy.url().should("contain", "P0_ACTION_ID");
+  it.skip("Explore actions by 'action plans'", () => {
+    //cy.get(".action-plan-name:first").click();
+    //cy.url().should("contain", "P1_ACTION_PLAN_ID");
+    //cy.get(".fabe-action-execute-stats:first").click({ force: true });
+    //cy.url().should("contain", "P0_ACTION_ID");
   });
 
-  it("follow an action plan", () => {
+  it.skip("follow an action plan", () => {
     cy.get(".action-plan-name:first").click();
     cy.url().should("contain", "P1_ACTION_PLAN_ID");
     cy.getCy("action_plan_followingButton").should("be.visible");
@@ -79,7 +97,7 @@ context.skip("App 200 page 1", () => {
     );
   });
 
-  it("open and review action info text", () => {
+  it.skip("open and review action info text", () => {
     var cardNo = 2 + Math.floor(Math.random() * 7);
     expect(cardNo).to.be.within(2, 9);
     var actionName;
