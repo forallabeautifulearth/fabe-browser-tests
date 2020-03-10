@@ -11,7 +11,7 @@ context("App 201 (Admin) p20 - Actions", () => {
   const page_number = 20;
   const page_name = "actions";
 
-  it.skip("Create new Action", () => {
+  it("Create new Action", () => {
     cy.adminLoginSetup(20);
     cy.openCreateModal(deleteName);
 
@@ -20,11 +20,16 @@ context("App 201 (Admin) p20 - Actions", () => {
       .type(deleteName)
       .should("have.value", deleteName);
 
-    //getIframeBody().then(cy.submitModal);
-    //
-    //closeIframeModal();
-    //
-    //cy.get(".a-Toolbar-inputText").type("Delete {enter}");
-    //cy.confirmItem(deleteName, page_name);
+    getIframeDom()
+      .find("#P21_LIFE_POINT_VALUE")
+      .type(1);
+    //.should("have.value", 1);
+
+    getIframeBody().then(cy.submitModal);
+
+    closeIframeModal();
+
+    cy.get(".a-Toolbar-inputText").type("Delete {enter}");
+    cy.confirmItem(deleteName, page_name);
   });
 });

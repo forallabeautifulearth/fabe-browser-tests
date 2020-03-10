@@ -27,7 +27,7 @@ context("App 200 login test", () => {
         .type(pUserEmail, { force: true });
     });
 
-    it.skip("plain login", () => {
+    it("plain login", () => {
       cy.getCy("password")
         .clear({ force: true })
         .should("be.empty")
@@ -35,11 +35,16 @@ context("App 200 login test", () => {
         .should("have.value", pPassword);
       cy.getCy("sign_inButton").click();
       cy.wait(["@login"]);
-      cy.get(".fabe-tab-home.brand-logo > img").should("exist");
+      cy.url()
+        .should("contain", ":1:")
+        .then($url => {
+          cy.visit($url.replace("/__/", "/ords/")); //necessary due to #redirectmalfunction
+        });
+      cy.get(".apex-logo-img").should("exist");
       cy.url().should("contain", ":1:");
     });
 
-    it.skip("wrong password", () => {
+    it("wrong password", () => {
       const badPassword = "blerg";
       cy.getCy("password")
         .clear()
@@ -59,16 +64,17 @@ context("App 200 login test", () => {
 
       // the url changes
       cy.url()
-        .should("not.include", "200:LOGIN")
-        // and instead is sends error message id
-        .and("include", "notification_msg");
-
+        .should("contain", ":9999:")
+        .then($url => {
+          cy.visit($url.replace("/__/", "/ords/")); //necessary due to #redirectmalfunction
+        });
+      //cy.url()
+      //  .should("not.include", "200:LOGIN")
+      //  // and instead is sends error message id
+      //  .and("include", "notification_msg");
+      //
       // the user can close the login error alert
-      cy.contains(".t-Alert", "Invalid Login")
-        .should("be.visible")
-        .findCy("panel-close_link")
-        .click();
-      cy.contains(".t-Alert", "Invalid Login").should("not.be.visible");
+      cy.contains(".t-Alert", "Invalid Login").should("be.visible");
     });
   });
 
