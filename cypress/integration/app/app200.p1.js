@@ -39,7 +39,7 @@ context("App 200 page 1", () => {
   it("comment on a post", () => {
     cy.get(".e-FeedPost--details:first").click({ force: true });
     cy.url().should("contain", "P0_FEED_POST_ID");
-    cy.get("#FeedPostCommentMessage")
+    cy.get("#AddFeedPostCommentMessage")
       .type(deleteName)
       .should("have.value", deleteName);
     cy.get(".mdc-icon-button__icon").click();
