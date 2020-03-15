@@ -43,6 +43,25 @@ context("App 200 page 1", () => {
       .type(deleteName)
       .should("have.value", deleteName);
     cy.get(".mdc-icon-button__icon").click();
+    cy.get(".mdc-snackbar__label").should("contain", "posted");
+    cy.get("#FeedPostComments").should("contain", deleteName);
+  });
+
+  it("delete a comment on a post", () => {
+    cy.get(".e-FeedPost--details:first").click({ force: true });
+    cy.url().should("contain", "P0_FEED_POST_ID");
+    cy.get("#AddFeedPostCommentMessage")
+      .type(deleteName)
+      .should("have.value", deleteName);
+    cy.get(".mdc-icon-button__icon").click();
+    cy.get(".mdc-snackbar__label").should("contain", "posted");
+    cy.get("#FeedPostComments").should("contain", deleteName);
+    cy.contains(deleteName).should("exist");
+    cy.get(".mdc-list-item__meta > .mdc-icon-button > .fas").click();
+    cy.get(".e-FeedPostComment--delete > .mdc-list-item__text").click();
+    cy.get("#DeleteFeedPostCommentConfirm > .mdc-button__label").click();
+    cy.get(".mdc-snackbar__label").should("contain", "deleted");
+    cy.contains(deleteName).should("not.exist");
   });
 
   it.skip("Do / Undo execute action", () => {
