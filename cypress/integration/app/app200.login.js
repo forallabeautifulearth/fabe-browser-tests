@@ -74,7 +74,7 @@ context("App 200 login test", () => {
       //  .and("include", "notification_msg");
       //
       // the user can close the login error alert
-      cy.contains(".t-Alert", "Invalid Login").should("be.visible");
+      cy.contains(".mdc-snackbar__label", "Invalid Login").should("be.visible");
     });
   });
 

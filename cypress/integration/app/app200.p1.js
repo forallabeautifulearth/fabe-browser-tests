@@ -57,7 +57,7 @@ context("App 200 page 1", () => {
     cy.get(".mdc-snackbar__label").should("contain", "posted");
     cy.get("#FeedPostComments").should("contain", deleteName);
     cy.contains(deleteName).should("exist");
-    cy.get(".mdc-list-item__meta > .mdc-icon-button > .fas").click();
+    cy.get(".mdc-list-item__meta > .mdc-icon-button > .fas:first").click();
     cy.get(".e-FeedPostComment--delete > .mdc-list-item__text").click();
     cy.get("#DeleteFeedPostCommentConfirm > .mdc-button__label").click();
     cy.get(".mdc-snackbar__label").should("contain", "deleted");

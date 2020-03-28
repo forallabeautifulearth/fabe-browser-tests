@@ -9,6 +9,6 @@ context("App 200 page 9996", () => {
       .then($url => {
         cy.visit($url.replace("/__/", "/ords/")); //necessary due to #redirectmalfunction
       });
-    cy.get(".t-Alert-title").should("be.visible");
+    cy.get(".mdc-snackbar__label").should("be.visible");
   });
 });
