@@ -40,7 +40,7 @@ context("App 201 (Admin) p130 - Impact Areas", () => {
 
     closeIframeModal();
     cy.wait(1000);
-    cy.scrollTo("top");
+    //cy.scrollTo("top");
     cy.get("#impact-areas_search_field").type("Delete {enter}");
     cy.confirmItem(deleteName, page_name);
   });
