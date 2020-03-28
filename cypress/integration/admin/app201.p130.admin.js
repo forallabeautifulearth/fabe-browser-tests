@@ -19,10 +19,10 @@ context("App 201 (Admin) p130 - Impact Areas", () => {
     //  cy.uploadImg($body, page_number + 1);
     //});
 
-    getIframeDom()
+    /*getIframeDom()
       .find("#P131_SEQUENCE")
       .type(deleteSeq)
-      .should("have.value", deleteSeq);
+      .should("have.value", deleteSeq);*/
 
     getIframeDom()
       .find("#P131_NAME")
@@ -39,7 +39,8 @@ context("App 201 (Admin) p130 - Impact Areas", () => {
     //cy.screenshot("submitted new item");
 
     closeIframeModal();
-
+    cy.wait(1000);
+    cy.scrollTo("top");
     cy.get("#impact-areas_search_field").type("Delete {enter}");
     cy.confirmItem(deleteName, page_name);
   });
