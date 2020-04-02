@@ -42,7 +42,7 @@ context("App 200 page 1", () => {
     cy.get("#AddFeedPostCommentMessage")
       .type(deleteName)
       .should("have.value", deleteName);
-    cy.get(".mdc-icon-button__icon").click();
+    cy.get("#FeedPostCommentSend > .mdc-icon-button__icon").click();
     cy.get(".mdc-snackbar__label").should("contain", "posted");
     cy.get("#FeedPostComments").should("contain", deleteName);
   });
@@ -53,7 +53,7 @@ context("App 200 page 1", () => {
     cy.get("#AddFeedPostCommentMessage")
       .type(deleteName)
       .should("have.value", deleteName);
-    cy.get(".mdc-icon-button__icon").click();
+    cy.get("#FeedPostCommentSend > .mdc-icon-button__icon").click();
     cy.get(".mdc-snackbar__label").should("contain", "posted");
     cy.get("#FeedPostComments").should("contain", deleteName);
     cy.contains(deleteName).should("exist");
