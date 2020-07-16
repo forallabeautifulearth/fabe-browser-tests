@@ -8,23 +8,53 @@ context("App 200 page 10 - onboarding", () => {
 
   before(function() {
     cy.login();
-    //cy.getCy("fa-home_link").should("be.visible");
+    cy.server();
+    cy.route("POST", "/ords/wwv_flow.ajax").as("refresh");
   });
   beforeEach(function() {
     cy.clearCookies();
     cy.setCookie("ORA_WWV_APP_200", appCookie);
     cy.visit(loggedInPage);
     cy.getCy("fa-clipboard-list-check_link").click();
+    //cy.get('[data-cy=fa-clipboard-list-check_link]')
   });
 
   it("complete action plan", () => {
-    cy.get(".fabe-region-body > .mdc-button").click();
+    cy.getCy("goButton").click();
     cy.get("#P10_QUESTION_DISPLAY").should("contain", "climate change");
-    cy.wait(2000);
-    cy.get('[data-answer-id="1"] > .mdc-button__ripple')
+    //cy.wait(2000);
+    cy.get('[data-answer-id="1"]')
       .should("exist")
       .then(text => {
-        console.log(text);
-      });
+        console.log(text[0].innerText);
+        expect(text[0].innerText).to.eq("GO PLASTIC FREE");
+      })
+      .click();
+    cy.get('[data-answer-id="2"]')
+      .should("exist")
+      .then(text => {
+        console.log(text[0].innerText);
+        expect(text[0].innerText).to.eq("REDUCE ENERGY USE");
+      })
+      .click();
+    cy.get('[data-answer-id="4"]')
+      .should("exist")
+      .then(text => {
+        console.log(text[0].innerText);
+        expect(text[0].innerText).to.eq("FOOD AND DIET");
+      })
+      .click();
+    cy.get('[data-answer-id="5"]')
+      .should("exist")
+      .then(text => {
+        console.log(text[0].innerText);
+        expect(text[0].innerText).to.eq("REUSE, REPURPOSE, REPAIR");
+      })
+      .click();
+    cy.get(".mdc-snackbar__label").should("contain", "3 answers allowed");
+    cy.getCy("nextButton")
+      .first()
+      .click();
+    //cy.wait(@refresh)
   });
 });
