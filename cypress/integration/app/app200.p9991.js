@@ -55,7 +55,7 @@ context("App 200 page 9991 - sign up", () => {
     //cy.percySnapshot();
   });
 
-  it.only("successful signup", () => {
+  it("successful signup", () => {
     typeCy("signup_email", pUserEmail2, "#P9991_SIGNUP_EMAIL_LABEL");
     cy.get("[data-cy=submitButton]").click();
 
