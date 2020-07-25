@@ -65,13 +65,13 @@ context("App 200 page 9991 - sign up", () => {
         cy.visit($url.replace("/__/", "/ords/")); //necessary due to #redirectmalfunction
       });
     cy.getCy("get_startedButton").should("be.visible");
-    cy.getCy("get_startedButton").click();
-    cy.url()
-      .should("include", ":1:")
-      .then($url => {
-        cy.visit($url.replace("/__/", "/ords/")); //necessary due to #redirectmalfunction
-      });
-    cy.get(".apex-logo-img").should("be.visible");
+    //cy.getCy("get_startedButton").click();
+    //cy.url()
+    //  .should("include", ":1:")
+    //  .then($url => {
+    //    cy.visit($url.replace("/__/", "/ords/")); //necessary due to #redirectmalfunction
+    //  });
+    //cy.get(".apex-logo-img").should("be.visible");
     //cy.percySnapshot("Get started after signup");
   });
 });
