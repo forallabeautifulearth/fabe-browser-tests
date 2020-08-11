@@ -24,7 +24,7 @@ context("App 200 page 1", () => {
       .should("have.class", "active");
   });
 
-  it("comment on a post", () => {
+  it.skip("comment on a post", () => {
     cy.get(".e-FeedPost--details:first").click({ force: true });
     cy.url().should("contain", "P0_FEED_POST_ID");
     cy.get("#AddFeedPostCommentMessage")
@@ -35,7 +35,7 @@ context("App 200 page 1", () => {
     cy.get("#FeedPostComments").should("contain", deleteName);
   });
 
-  it("delete a comment on a post", () => {
+  it.skip("delete a comment on a post", () => {
     cy.get(".e-FeedPost--details:first").click({ force: true });
     cy.url().should("contain", "P0_FEED_POST_ID");
     cy.get("#AddFeedPostCommentMessage")
