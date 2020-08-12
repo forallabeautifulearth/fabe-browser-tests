@@ -27,7 +27,7 @@ context("App 200 login test", () => {
         .type(pUserEmail, { force: true });
     });
 
-    it.only("plain login", () => {
+    it("plain login", () => {
       cy.getCy("password")
         .clear({ force: true })
         .should("be.empty")
