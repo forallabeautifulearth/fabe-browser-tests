@@ -42,6 +42,7 @@ context("App 200 login test", () => {
         });
       //
       //cy.getCy("no_thanks,_skip!Button").click();
+      cy.wait(500);
       cy.get('[data-cy="no_thanks,_skip!Button"]').click();
       cy.url()
         .should("contain", ":1:")
