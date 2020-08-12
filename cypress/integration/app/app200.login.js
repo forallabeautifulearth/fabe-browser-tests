@@ -36,12 +36,20 @@ context("App 200 login test", () => {
       cy.getCy("sign_inButton").click();
       cy.wait(["@login"]);
       cy.url()
+        .should("contain", ":10:")
+        .then($url => {
+          cy.visit($url.replace("/__/", "/ords/")); //necessary due to #redirectmalfunction
+        });
+      //
+      //cy.getCy("no_thanks,_skip!Button").click();
+      cy.wait(500);
+      cy.get('[data-cy="no_thanks,_skip!Button"]').click();
+      cy.url()
         .should("contain", ":1:")
         .then($url => {
           cy.visit($url.replace("/__/", "/ords/")); //necessary due to #redirectmalfunction
         });
       cy.get(".apex-logo-img").should("exist");
-      cy.url().should("contain", ":1:");
     });
 
     it("wrong password", () => {
