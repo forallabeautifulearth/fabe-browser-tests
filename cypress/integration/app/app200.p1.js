@@ -19,6 +19,7 @@ context("App 200 page 1", () => {
   });
 
   it("like a post", () => {
+    cy.wait(1000);
     cy.get(".e-FeedPost--like:first")
       .click()
       .should("have.class", "active");
