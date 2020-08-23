@@ -254,15 +254,23 @@ Cypress.Commands.add("login", () => {
   cy.wait(["@login"]);
   //cy.get(".fabe-tab-home.brand-logo > img").should("exist");
   cy.url()
-    .should("contain", ":1:")
+    .should("contain", ":10:")
     .then($url => {
       window.loggedInPage = $url;
       window.loggedInPage = window.loggedInPage.replace("/__/", "/ords/");
+      window.loggedInPage = window.loggedInPage.replace(":10:", ":1:");
       //cy.visit(window.loggedInPage); //necessary due to #redirectmalfunction
     });
   cy.getCookie("ORA_WWV_APP_200").then($cookie => {
     window.appCookie = $cookie.value;
   });
+  //cy.get('[data-cy="no_thanks,_skip!Button"] > .mdc-button__ripple').click();
+  //cy.url()
+  //  .should("contain", ":1:")
+  //  .then($url => {
+  //    cy.visit($url.replace("/__/", "/ords/")); //necessary due to #redirectmalfunction
+  //  });
+  //cy.get(".apex-logo-img").should("exist");
 });
 
 //

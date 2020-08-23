@@ -40,7 +40,10 @@ context("App 200 login test", () => {
         .then($url => {
           cy.visit($url.replace("/__/", "/ords/")); //necessary due to #redirectmalfunction
         });
+      //cy.wait(500);
+
       cy.getCy("no_thanksButton").click();
+
       cy.url()
         .should("contain", ":1:")
         .then($url => {

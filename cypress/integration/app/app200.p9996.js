@@ -1,5 +1,5 @@
 context("App 200 page 9996", () => {
-  it("forgot password", () => {
+  it.skip("forgot password", () => {
     cy.userLoginSetup(9996);
     const pUserEmail = Cypress.env("userEmail");
     cy.getCy("signup_email").type(pUserEmail);

@@ -13,21 +13,9 @@ context("App 200 page 1", () => {
   beforeEach(function() {
     cy.clearCookies();
     cy.setCookie("ORA_WWV_APP_200", appCookie);
+    cy.viewport(375, 812);
     cy.visit(loggedInPage);
-    cy.getCy("fa-home_link").click();
-  });
-
-  it.skip("Execute action", () => {
-    cy.get(".fabe-action-execute-birdhand:first");
-    //.click({
-    //  force: true
-    //});
-    //cy.get(".toast").should("be.visible");
-    //cy.get(".action-execute-count:first")
-    //  .invoke("text")
-    //  .then(text => {
-    //    expect(parseInt(text.trim())).to.be.a("number");
-    //  });
+    cy.getCy("homeButton").click();
   });
 
   it("like a post", () => {
@@ -36,7 +24,7 @@ context("App 200 page 1", () => {
       .should("have.class", "active");
   });
 
-  it("comment on a post", () => {
+  it.skip("comment on a post", () => {
     cy.get(".e-FeedPost--details:first").click({ force: true });
     cy.url().should("contain", "P0_FEED_POST_ID");
     cy.get("#AddFeedPostCommentMessage")
@@ -47,7 +35,7 @@ context("App 200 page 1", () => {
     cy.get("#FeedPostComments").should("contain", deleteName);
   });
 
-  it("delete a comment on a post", () => {
+  it.skip("delete a comment on a post", () => {
     cy.get(".e-FeedPost--details:first").click({ force: true });
     cy.url().should("contain", "P0_FEED_POST_ID");
     cy.get("#AddFeedPostCommentMessage")
