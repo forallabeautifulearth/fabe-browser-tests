@@ -17,12 +17,13 @@ context("App 201 (Admin) p10 - Action Categories", () => {
       cyDom1.find("#P11_NAME").type(deleteName);
       const cyDom2 = cy.wrap($body);
       cyDom2.find("#P11_DESCRIPTION").type(deleteName, { force: true });
-      cy.uploadImg($body, page_number + 1);
+      //cy.uploadImg($body, page_number + 1);
       cy.submitModal($body);
     });
     cy.get("iframe").then(function($iframe) {
       cy.closeModal($iframe);
     });
+    cy.wait(1000);
     cy.get("#action_categories_search_field").type("Delete {enter}");
     cy.confirmItem(deleteName, page_name);
   });

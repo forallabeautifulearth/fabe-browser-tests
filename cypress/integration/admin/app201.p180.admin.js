@@ -26,7 +26,7 @@ context("test p180", () => {
       cyDom1.find("#P181_SPECIES_NAME").type(deleteName);
       const cyDom2 = cy.wrap($body);
       cyDom2.find("#P181_SPECIES_DESCRIPTION").type(deleteName);
-      cy.uploadImg($body, page_number + 1);
+      //cy.uploadImg($body, page_number + 1);
       cy.submitModal($body);
     });
     getIframeDom()
