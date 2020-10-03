@@ -251,13 +251,13 @@ Cypress.Commands.add("login", () => {
     .type(pPassword, { force: true, log: false });
 
   cy.getCy("sign_inButton").click();
-  cy.wait(["@login"]);
+  //cy.wait(["@login"]);
   //cy.get(".fabe-tab-home.brand-logo > img").should("exist");
   cy.url()
     .should("contain", ":10:")
     .then($url => {
       window.loggedInPage = $url;
-      window.loggedInPage = window.loggedInPage.replace("/__/", "/ords/");
+      //window.loggedInPage = window.loggedInPage.replace("/__/", "/ords/");
       window.loggedInPage = window.loggedInPage.replace(":10:", ":1:");
       //cy.visit(window.loggedInPage); //necessary due to #redirectmalfunction
     });

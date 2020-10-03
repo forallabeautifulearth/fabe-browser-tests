@@ -15,7 +15,8 @@ context("App 200 page 1", () => {
     cy.setCookie("ORA_WWV_APP_200", appCookie);
     cy.viewport(375, 812);
     cy.visit(loggedInPage);
-    cy.getCy("homeButton").click();
+    //cy.getCy("homeButton").click();
+    cy.get("#mdc-tab-1").click();
   });
 
   it("like a post", () => {

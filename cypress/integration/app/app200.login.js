@@ -34,21 +34,19 @@ context("App 200 login test", () => {
         .type(pPassword, { force: true })
         .should("have.value", pPassword);
       cy.getCy("sign_inButton").click();
-      cy.wait(["@login"]);
-      cy.url()
-        .should("contain", ":10:")
-        .then($url => {
-          cy.visit($url.replace("/__/", "/ords/")); //necessary due to #redirectmalfunction
-        });
-      //cy.wait(500);
+      //cy.wait(["@login"]);
+      cy.url().should("contain", ":10:");
+      //.then($url => {
+      //  cy.visit($url.replace("/__/", "/ords/")); //necessary due to #redirectmalfunction
+      //});
+      cy.wait(500);
 
-      cy.getCy("no_thanksButton").click();
-
-      cy.url()
-        .should("contain", ":1:")
-        .then($url => {
-          cy.visit($url.replace("/__/", "/ords/")); //necessary due to #redirectmalfunction
-        });
+      //cy.getCy("no_thanksButton").click();
+      cy.get("[data-cy=explore_evry_insteadButton]:first").click();
+      cy.url().should("contain", ":1:");
+      //.then($url => {
+      //  cy.visit($url.replace("/__/", "/ords/")); //necessary due to #redirectmalfunction
+      //});
       cy.get(".apex-logo-img").should("exist");
     });
 
@@ -68,14 +66,13 @@ context("App 200 login test", () => {
           console.log("url before sign in", url);
         });
       cy.getCy("sign_inButton").click();
-      cy.wait("@login");
+      //cy.wait("@login");
 
       // the url changes
-      cy.url()
-        .should("contain", ":9999:")
-        .then($url => {
-          cy.visit($url.replace("/__/", "/ords/")); //necessary due to #redirectmalfunction
-        });
+      cy.url().should("contain", ":9999:");
+      //.then($url => {
+      //  cy.visit($url.replace("/__/", "/ords/")); //necessary due to #redirectmalfunction
+      //});
       //cy.url()
       //  .should("not.include", "200:LOGIN")
       //  // and instead is sends error message id
