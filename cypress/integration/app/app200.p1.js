@@ -16,11 +16,12 @@ context("App 200 page 1", () => {
     cy.viewport(375, 812);
     cy.visit(loggedInPage);
     //cy.getCy("homeButton").click();
-    cy.get("#mdc-tab-1").click();
+    //cy.get("#mdc-tab-1").click();
   });
 
   it("like a post", () => {
     cy.wait(1000);
+    cy.get("#mdc-tab-1").click();
     cy.get(".e-FeedPost--like:first")
       .click()
       .should("have.class", "active");
