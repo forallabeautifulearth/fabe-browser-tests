@@ -27,13 +27,13 @@ context("App 200 page 1", () => {
       .should("have.class", "active");
   });
 
-  it.skip("comment on a post", () => {
+  it("comment on a post", () => {
     cy.get(".e-FeedPost--details:first").click({ force: true });
     cy.url().should("contain", "P0_FEED_POST_ID");
     cy.get("#AddFeedPostCommentMessage")
       .type(deleteName)
       .should("have.value", deleteName);
-    cy.get("#FeedPostCommentSend > .mdc-icon-button__icon").click();
+    cy.get("#FeedPostCommentSend").click();
     cy.get(".mdc-snackbar__label").should("contain", "posted");
     cy.get("#FeedPostComments").should("contain", deleteName);
   });

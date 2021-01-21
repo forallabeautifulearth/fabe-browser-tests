@@ -40,13 +40,11 @@ context("App 200 login test", () => {
       //  cy.visit($url.replace("/__/", "/ords/")); //necessary due to #redirectmalfunction
       //});
       cy.wait(500);
+      cy.get('[data-cy=back_to_evryButton]').click()
 
-      //cy.getCy("no_thanksButton").click();
-      cy.get("[data-cy=explore_evry_insteadButton]:first").click();
-      cy.url().should("contain", ":1:");
-      //.then($url => {
-      //  cy.visit($url.replace("/__/", "/ords/")); //necessary due to #redirectmalfunction
-      //});
+      
+      cy.url().should("contain", ":50:");
+      
       cy.get(".apex-logo-img").should("exist");
     });
 

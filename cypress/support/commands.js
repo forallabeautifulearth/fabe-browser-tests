@@ -98,7 +98,7 @@ Cypress.Commands.add("setUpAuth", (url, pageNum, valid_session) => {
   cy.visit(authUrl);
 
   // wait for the loading splash screen to go away
-  cy.get(".pg-loading").should("not.be.visible");
+  //cy.get(".pg-loading").should("not.be.visible");
 });
 
 //verifyNotThere is used in the admin to make sure a givenItem
