@@ -23,7 +23,8 @@ context("App 200 page 1", () => {
     cy.wait(1000);
     cy.get("#mdc-tab-1").click();
     cy.get(".e-FeedPost--like:first")
-      .click()
+      .click();
+    cy.get(".e-FeedPost--like:first")
       .should("have.class", "active");
   });
 
