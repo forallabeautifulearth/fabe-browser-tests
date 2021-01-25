@@ -14,27 +14,105 @@ context("App 200 page 1", () => {
     cy.clearCookies();
     cy.setCookie("ORA_WWV_APP_200", appCookie);
     cy.viewport(375, 812);
-    cy.visit(loggedInPage);
+    
     //cy.getCy("homeButton").click();
     //cy.get("#mdc-tab-1").click();
   });
 
-  it("like a post", () => {
+  it("create post", () => {
+    var explorePage = loggedInPage.replace(/:$/,'P0_STATE:ExploreTab');
+    cy.visit(explorePage);
+    cy.wait(2000);
+    cy.get('.demo-card__primary-action > .flex-column > .flex-row > .demo-card__title:first').click();
+    cy.get('#ActionDetailsExecute').click();
+    cy.wait(1000);
+    cy.get('#ActionExecuteModal-content > .mdc-text-field').click()
+      .type(deleteName)
+    cy.get('#ActionExecuteMessage').should("have.value", deleteName);
+    cy.get('#ActionExecutePublish').click();
+    cy.get(".mdc-snackbar__label").should("contain", "Thanks for sharing");
     cy.wait(1000);
     cy.get("#mdc-tab-1").click();
+    cy.wait(1000);
+    cy.get(".e-FeedPost--like:first")
+      .click();
+    cy.get(".e-FeedPost--like:first")
+      .should("have.class", "active");
+  })
+
+  it("check cap tab", () => {
+    var explorePage = loggedInPage.replace(/:$/,'P0_STATE:ExploreTab');
+    cy.visit(explorePage);
+    cy.wait(2000);
+    cy.get('.demo-card__primary-action > .flex-column > .flex-row > .demo-card__title:first').click();
+    cy.get('#ActionDetailsExecute').click();
+    cy.wait(1000);
+    cy.get('#ActionExecuteModal-content > .mdc-text-field').click()
+      .type(deleteName)
+    cy.get('#ActionExecuteMessage').should("have.value", deleteName);
+    cy.get('#ActionExecutePublish').click();
+    cy.get(".mdc-snackbar__label").should("contain", "Thanks for sharing");
+    cy.wait(1000);
+    cy.get("#mdc-tab-3").click();
+    cy.wait(1000);
+    cy.get('#CapTabChallenges').should("contain","You've completed");
+  })
+
+  it("check healer board", () => {
+    var explorePage = loggedInPage.replace(/:$/,'P0_STATE:ExploreTab');
+    cy.visit(explorePage);
+    cy.wait(2000);
+    cy.get('.demo-card__primary-action > .flex-column > .flex-row > .demo-card__title:first').click();
+    cy.get('#ActionDetailsExecute').click();
+    cy.wait(1000);
+    cy.get('#ActionExecuteModal-content > .mdc-text-field').click()
+      .type(deleteName)
+    cy.get('#ActionExecuteMessage').should("have.value", deleteName);
+    cy.get('#ActionExecutePublish').click();
+    cy.get(".mdc-snackbar__label").should("contain", "Thanks for sharing");
+    cy.wait(1000);
+    cy.get("#mdc-tab-4").click();
+    cy.url().should("contain",":20:");
+    cy.wait(500);
+    cy.get('#LeaderboardData').click();
+    cy.url().should("contain","cypresstestuser");
+    cy.get(".e-FeedPost--comment:first").click({ force: true });
+    cy.url().should("contain", "P0_FEED_POST_ID");
+    cy.get("#AddFeedPostCommentMessage")
+      .type(deleteName)
+      .should("have.value", deleteName);
+    cy.get("#FeedPostCommentSend").click();
+    cy.wait(1000);
+    cy.get(".mdc-snackbar__label").should("contain", "posted");
+    cy.get("#FeedPostComments").should("contain", deleteName);
+  })
+
+  it("check account tab", () => {
+    var explorePage = loggedInPage.replace(/:$/,'P0_JOURNEY_USERNAME:cypresstestuser');
+    cy.visit(explorePage);
+    cy.wait(2000);
+    cy.get('#JourneyProfile').should("contain","cypress")
+  })
+
+  it.skip("like a post", () => {
+    cy.visit(loggedInPage);
+    cy.wait(2000);
+    cy.get("#mdc-tab-1").click();
+    cy.wait(2000);
     cy.get(".e-FeedPost--like:first")
       .click();
     cy.get(".e-FeedPost--like:first")
       .should("have.class", "active");
   });
 
-  it("comment on a post", () => {
+  it.skip("comment on a post", () => {
     cy.get(".e-FeedPost--details:first").click({ force: true });
     cy.url().should("contain", "P0_FEED_POST_ID");
     cy.get("#AddFeedPostCommentMessage")
       .type(deleteName)
       .should("have.value", deleteName);
     cy.get("#FeedPostCommentSend").click();
+    cy.wait(1000);
     cy.get(".mdc-snackbar__label").should("contain", "posted");
     cy.get("#FeedPostComments").should("contain", deleteName);
   });
