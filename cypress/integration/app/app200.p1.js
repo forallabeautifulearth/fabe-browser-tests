@@ -55,10 +55,11 @@ context("App 200 page 1", () => {
     cy.wait(1000);
     cy.get("#mdc-tab-3").click();
     cy.wait(1000);
-    cy.get('#CapTabChallenges').should("contain","You've completed");
+    //cy.get('#CapTabChallenges').should("contain","You've completed");
+    cy.get('[data-cy=finalize_dayButton]').should("contain","Finalize day");
   })
 
-  it("check healer board", () => {
+  it.only("check healer board", () => {
     var explorePage = loggedInPage.replace(/:$/,'P0_STATE:ExploreTab');
     cy.visit(explorePage);
     cy.wait(2000);
