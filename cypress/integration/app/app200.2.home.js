@@ -8,74 +8,91 @@ context("App 200 page 1", () => {
 
   before(function() {
     cy.login();
-    //cy.getCy("fa-home_link").should("be.visible");
   });
   beforeEach(function() {
     cy.clearCookies();
     cy.setCookie("ORA_WWV_APP_200", appCookie);
     cy.viewport(375, 812);
-    
-    //cy.getCy("homeButton").click();
-    //cy.get("#mdc-tab-1").click();
   });
 
-  it("create post", () => {
-    var explorePage = loggedInPage.replace(/:$/,'P0_STATE:ExploreTab');
+  it("complete questionnaire", () => {
+    //cy.get(`[data-cy="let's_go!Button"] > .mdc-button__ripple`).click();
+    cy.get(`[data-cy="let's_go!Button"]`).click();
+    cy.get("#P10_QUESTION").should(
+      "contain",
+      "What type of area do you live in?"
+    );
+    cy.get(".fabe-answer-pill:first").click();
+    cy.get("[data-cy=nextButton]").click();
+  });
+
+  it.only("create post", () => {
+    var explorePage = loggedInPage.replace(/:$/, "P0_STATE:ExploreTab");
     cy.visit(explorePage);
+    cy.get("#MainNavigation #mdc-tab-2").click();
+    cy.pause();
+
     cy.wait(2000);
-    cy.get('.demo-card__primary-action > .flex-column > .flex-row > .demo-card__title:first').click();
-    cy.get('#ActionDetailsExecute').click();
+    cy.get(
+      ".demo-card__primary-action > .flex-column > .flex-row > .demo-card__title:first"
+    ).click();
+    cy.get("#ActionDetailsExecute").click();
     cy.wait(1000);
-    cy.get('#ActionExecuteModal-content > .mdc-text-field').click()
-      .type(deleteName)
-    cy.get('#ActionExecuteMessage').should("have.value", deleteName);
-    cy.get('#ActionExecutePublish').click();
+    cy.get("#ActionExecuteModal-content > .mdc-text-field")
+      .click()
+      .type(deleteName);
+    cy.get("#ActionExecuteMessage").should("have.value", deleteName);
+    cy.get("#ActionExecutePublish").click();
     cy.get(".mdc-snackbar__label").should("contain", "Thanks for sharing");
     cy.wait(1000);
     cy.get("#mdc-tab-1").click();
     cy.wait(1000);
-    cy.get(".e-FeedPost--like:first")
-      .click();
-    cy.get(".e-FeedPost--like:first")
-      .should("have.class", "active");
-  })
+    cy.get(".e-FeedPost--like:first").click();
+    cy.get(".e-FeedPost--like:first").should("have.class", "active");
+  });
 
   it("check cap tab", () => {
-    var explorePage = loggedInPage.replace(/:$/,'P0_STATE:ExploreTab');
+    var explorePage = loggedInPage.replace(/:$/, "P0_STATE:ExploreTab");
     cy.visit(explorePage);
     cy.wait(2000);
-    cy.get('.demo-card__primary-action > .flex-column > .flex-row > .demo-card__title:first').click();
-    cy.get('#ActionDetailsExecute').click();
+    cy.get(
+      ".demo-card__primary-action > .flex-column > .flex-row > .demo-card__title:first"
+    ).click();
+    cy.get("#ActionDetailsExecute").click();
     cy.wait(1000);
-    cy.get('#ActionExecuteModal-content > .mdc-text-field').click()
-      .type(deleteName)
-    cy.get('#ActionExecuteMessage').should("have.value", deleteName);
-    cy.get('#ActionExecutePublish').click();
+    cy.get("#ActionExecuteModal-content > .mdc-text-field")
+      .click()
+      .type(deleteName);
+    cy.get("#ActionExecuteMessage").should("have.value", deleteName);
+    cy.get("#ActionExecutePublish").click();
     cy.get(".mdc-snackbar__label").should("contain", "Thanks for sharing");
     cy.wait(1000);
     cy.get("#mdc-tab-3").click();
     cy.wait(1000);
     //cy.get('#CapTabChallenges').should("contain","You've completed");
-    cy.get('[data-cy=finalize_dayButton]').should("contain","Finalize day");
-  })
+    cy.get("[data-cy=finalize_dayButton]").should("contain", "Finalize day");
+  });
 
   it("check healer board", () => {
-    var explorePage = loggedInPage.replace(/:$/,'P0_STATE:ExploreTab');
+    var explorePage = loggedInPage.replace(/:$/, "P0_STATE:ExploreTab");
     cy.visit(explorePage);
     cy.wait(2000);
-    cy.get('.demo-card__primary-action > .flex-column > .flex-row > .demo-card__title:first').click();
-    cy.get('#ActionDetailsExecute').click();
+    cy.get(
+      ".demo-card__primary-action > .flex-column > .flex-row > .demo-card__title:first"
+    ).click();
+    cy.get("#ActionDetailsExecute").click();
     cy.wait(1000);
-    cy.get('#ActionExecuteModal-content > .mdc-text-field').click()
-      .type(deleteName)
-    cy.get('#ActionExecuteMessage').should("have.value", deleteName);
-    cy.get('#ActionExecutePublish').click();
+    cy.get("#ActionExecuteModal-content > .mdc-text-field")
+      .click()
+      .type(deleteName);
+    cy.get("#ActionExecuteMessage").should("have.value", deleteName);
+    cy.get("#ActionExecutePublish").click();
     cy.get(".mdc-snackbar__label").should("contain", "Thanks for sharing");
     cy.wait(1000);
     cy.get("#mdc-tab-4").click();
-    cy.url().should("contain",":20:");
+    cy.url().should("contain", ":20:");
     cy.wait(500);
-    cy.get('#LeaderboardData').click();
+    cy.get("#LeaderboardData").click();
     //cy.url().should("contain","cypresstestuser");
     //cy.get(".e-FeedPost--comment:first").click({ force: true });
     //cy.url().should("contain", "P0_FEED_POST_ID");
@@ -86,24 +103,25 @@ context("App 200 page 1", () => {
     //cy.wait(1000);
     //cy.get(".mdc-snackbar__label").should("contain", "posted");
     //cy.get("#FeedPostComments").should("contain", deleteName);
-  })
+  });
 
   it("check account tab", () => {
-    var explorePage = loggedInPage.replace(/:$/,'P0_JOURNEY_USERNAME:cypresstestuser');
+    var explorePage = loggedInPage.replace(
+      /:$/,
+      "P0_JOURNEY_USERNAME:cypresstestuser"
+    );
     cy.visit(explorePage);
     cy.wait(2000);
-    cy.get('#JourneyProfile').should("contain","cypress")
-  })
+    cy.get("#JourneyProfile").should("contain", "cypress");
+  });
 
   it.skip("like a post", () => {
     cy.visit(loggedInPage);
     cy.wait(2000);
     cy.get("#mdc-tab-1").click();
     cy.wait(2000);
-    cy.get(".e-FeedPost--like:first")
-      .click();
-    cy.get(".e-FeedPost--like:first")
-      .should("have.class", "active");
+    cy.get(".e-FeedPost--like:first").click();
+    cy.get(".e-FeedPost--like:first").should("have.class", "active");
   });
 
   it.skip("comment on a post", () => {
