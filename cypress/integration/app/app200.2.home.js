@@ -8,7 +8,10 @@ context("App 200 page 1", () => {
 
   before(function() {
     cy.login();
-    cy.intercept('POST','/ords/wwv_flow.ajax').as('db');
+    cy.intercept("POST", "/ords/wwv_flow.ajax").as("db");
+    cy.get("[data-cy=back_to_evryButton]")
+      .click()
+      .wait("@db");
   });
   beforeEach(function() {
     cy.clearCookies();
@@ -18,7 +21,7 @@ context("App 200 page 1", () => {
 
   it.only("create post", () => {
     var explorePage = loggedInPage.replace(/:$/, "P0_STATE:ExploreTab");
-    cy.visit(explorePage).wait('@db');
+    cy.visit(explorePage).wait("@db");
     //cy.get("#MainNavigation #mdc-tab-2").click().wait('@db');
     cy.wait(2000);
     cy.get(
@@ -33,13 +36,17 @@ context("App 200 page 1", () => {
     cy.get("#ActionExecutePublish").click();
     cy.get(".mdc-snackbar__label").should("contain", "Post added to fee");
     cy.get(".mdc-snackbar").then(snack => {
-      console.log({snack})
+      console.log({ snack });
     });
-    cy.get('.mdc-snackbar__action').click().wait('@db');
+    cy.get(".mdc-snackbar__action")
+      .click()
+      .wait("@db");
     cy.wait(1000);
-    cy.url().should('contain','200:1:')
+    cy.url().should("contain", "200:1:");
     cy.wait(1000);
-    cy.get(".e-FeedPost--like:first").click().wait('@db');
+    cy.get(".e-FeedPost--like:first")
+      .click()
+      .wait("@db");
     cy.get(".e-FeedPost--like:first").should("have.class", "active");
   });
 

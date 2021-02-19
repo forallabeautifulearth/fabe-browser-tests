@@ -231,7 +231,7 @@ Cypress.Commands.add("login", () => {
 
   cy.clearCookies();
   cy.intercept("POST", "/ords/wwv_flow.accept").as("login");
-  cy.intercept('POST','/ords/wwv_flow.ajax').as('db');
+  cy.intercept("POST", "/ords/wwv_flow.ajax").as("db");
   cy.visit(loginPage);
   // cy.openWindow(loginPage)
   cy.clearCookie("LOGIN_USERNAME_COOKIE");
@@ -250,7 +250,9 @@ Cypress.Commands.add("login", () => {
     // security tip: do not print the password in the command log
     .type(pPassword, { force: true, log: false });
 
-  cy.getCy("sign_inButton").click().wait('@login');
+  cy.getCy("sign_inButton")
+    .click()
+    .wait("@login");
   //cy.get(".fabe-tab-home.brand-logo > img").should("exist");
   cy.url()
     .should("contain", ":10:")
@@ -259,7 +261,7 @@ Cypress.Commands.add("login", () => {
       window.loggedInPage = window.loggedInPage.replace("/__/", "/ords/");
       //window.loggedInPage = window.loggedInPage.replace(":10:", ":1:");
       cy.visit(window.loggedInPage); //necessary due to #redirectmalfunction
-      cy.get('[data-cy=back_to_evryButton]').click().wait('@db')
+      //cy.get('[data-cy=back_to_evryButton]').click().wait('@db')
     });
   cy.getCookie("ORA_WWV_APP_200").then($cookie => {
     window.appCookie = $cookie.value;
