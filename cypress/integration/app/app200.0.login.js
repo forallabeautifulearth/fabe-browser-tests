@@ -35,10 +35,10 @@ context("App 200 login test", () => {
         .should("have.value", pPassword);
       cy.getCy("sign_inButton").click();
       //cy.wait(["@login"]);
-      cy.url().should("contain", ":10:");
-      //.then($url => {
-      //  cy.visit($url.replace("/__/", "/ords/")); //necessary due to #redirectmalfunction
-      //});
+      cy.url().should("contain", ":10:")
+      .then($url => {
+        cy.visit($url.replace("/__/", "/ords/")); //necessary due to #redirectmalfunction
+      });
       cy.wait(500);
       cy.get('[data-cy=back_to_evryButton]').click()
 
@@ -67,10 +67,10 @@ context("App 200 login test", () => {
       //cy.wait("@login");
 
       // the url changes
-      cy.url().should("contain", ":9999:");
-      //.then($url => {
-      //  cy.visit($url.replace("/__/", "/ords/")); //necessary due to #redirectmalfunction
-      //});
+      cy.url().should("contain", ":9999:")
+      .then($url => {
+        cy.visit($url.replace("/__/", "/ords/")); //necessary due to #redirectmalfunction
+      });
       //cy.url()
       //  .should("not.include", "200:LOGIN")
       //  // and instead is sends error message id

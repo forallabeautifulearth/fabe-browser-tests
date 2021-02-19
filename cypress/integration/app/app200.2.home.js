@@ -8,6 +8,7 @@ context("App 200 page 1", () => {
 
   before(function() {
     cy.login();
+    cy.intercept('POST','/ords/wwv_flow.ajax').as('db');
   });
   beforeEach(function() {
     cy.clearCookies();
@@ -15,23 +16,10 @@ context("App 200 page 1", () => {
     cy.viewport(375, 812);
   });
 
-  it("complete questionnaire", () => {
-    //cy.get(`[data-cy="let's_go!Button"] > .mdc-button__ripple`).click();
-    cy.get(`[data-cy="let's_go!Button"]`).click();
-    cy.get("#P10_QUESTION").should(
-      "contain",
-      "What type of area do you live in?"
-    );
-    cy.get(".fabe-answer-pill:first").click();
-    cy.get("[data-cy=nextButton]").click();
-  });
-
   it.only("create post", () => {
     var explorePage = loggedInPage.replace(/:$/, "P0_STATE:ExploreTab");
-    cy.visit(explorePage);
-    cy.get("#MainNavigation #mdc-tab-2").click();
-    cy.pause();
-
+    cy.visit(explorePage).wait('@db');
+    //cy.get("#MainNavigation #mdc-tab-2").click().wait('@db');
     cy.wait(2000);
     cy.get(
       ".demo-card__primary-action > .flex-column > .flex-row > .demo-card__title:first"
@@ -43,11 +31,15 @@ context("App 200 page 1", () => {
       .type(deleteName);
     cy.get("#ActionExecuteMessage").should("have.value", deleteName);
     cy.get("#ActionExecutePublish").click();
-    cy.get(".mdc-snackbar__label").should("contain", "Thanks for sharing");
+    cy.get(".mdc-snackbar__label").should("contain", "Post added to fee");
+    cy.get(".mdc-snackbar").then(snack => {
+      console.log({snack})
+    });
+    cy.get('.mdc-snackbar__action').click().wait('@db');
     cy.wait(1000);
-    cy.get("#mdc-tab-1").click();
+    cy.url().should('contain','200:1:')
     cy.wait(1000);
-    cy.get(".e-FeedPost--like:first").click();
+    cy.get(".e-FeedPost--like:first").click().wait('@db');
     cy.get(".e-FeedPost--like:first").should("have.class", "active");
   });
 
