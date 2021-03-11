@@ -33,7 +33,10 @@ context("App 200 onboarding", () => {
       .click()
       .wait("@next");
 
-    cy.get("#P10_QUESTION").should("contain", "Tell us about your home.");
+    cy.get("#P10_QUESTION").should(
+      "contain",
+      "What kind of home do you live in?"
+    );
     cy.get(".fabe-answer-pill:first")
       .click()
       .wait("@next");
@@ -41,7 +44,7 @@ context("App 200 onboarding", () => {
       .click()
       .wait("@next");
 
-    cy.get("#P10_QUESTION").should("contain", "Describe your property.");
+    cy.get("#P10_QUESTION").should("contain", "What is on your property?");
     cy.get(".fabe-answer-pill:first")
       .click()
       .wait("@next");
@@ -49,7 +52,10 @@ context("App 200 onboarding", () => {
       .click()
       .wait("@next");
 
-    cy.get("#P10_QUESTION").should("contain", "Describe your diet.");
+    cy.get("#P10_QUESTION").should(
+      "contain",
+      "How would you describe your diet?"
+    );
     cy.get(".fabe-answer-pill:first")
       .click()
       .wait("@next");
@@ -57,7 +63,7 @@ context("App 200 onboarding", () => {
       .click()
       .wait("@next");
 
-    cy.get("#P10_QUESTION").should("contain", "Where do you get you food?");
+    cy.get("#P10_QUESTION").should("contain", "Where do you get your food?");
     cy.get(".fabe-answer-pill:first")
       .click()
       .wait("@next");
