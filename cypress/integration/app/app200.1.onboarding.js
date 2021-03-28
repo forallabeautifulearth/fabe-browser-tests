@@ -18,7 +18,8 @@ context("App 200 onboarding", () => {
   it("complete questionnaire", () => {
     cy.intercept("POST", "/ords/wwv_flow.ajax").as("next");
     cy.url().should("contain", "200:10:");
-    cy.get(`[data-cy="let's_go!Button"]`)
+
+    cy.get("[data-cy=tell_us_about_yourselfButton]")
       .click()
       .wait("@next");
 
