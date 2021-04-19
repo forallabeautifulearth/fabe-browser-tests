@@ -19,7 +19,7 @@ context("App 200 page 1", () => {
     cy.viewport(375, 812);
   });
 
-  it.only("create post", () => {
+  it.skip("create post", () => {
     var explorePage = loggedInPage.replace(/:$/, "P0_STATE:ExploreTab");
     cy.visit(explorePage).wait("@db");
     //cy.get("#MainNavigation #mdc-tab-2").click().wait('@db');
@@ -50,7 +50,7 @@ context("App 200 page 1", () => {
     cy.get(".e-FeedPost--like:first").should("have.class", "active");
   });
 
-  it("check cap tab", () => {
+  it.skip("check cap tab", () => {
     var explorePage = loggedInPage.replace(/:$/, "P0_STATE:ExploreTab");
     cy.visit(explorePage);
     cy.wait(2000);
@@ -72,7 +72,7 @@ context("App 200 page 1", () => {
     cy.get("[data-cy=finalize_dayButton]").should("contain", "Finalize day");
   });
 
-  it("check healer board", () => {
+  it.skip("check healer board", () => {
     var explorePage = loggedInPage.replace(/:$/, "P0_STATE:ExploreTab");
     cy.visit(explorePage);
     cy.wait(2000);
@@ -104,7 +104,7 @@ context("App 200 page 1", () => {
     //cy.get("#FeedPostComments").should("contain", deleteName);
   });
 
-  it("check account tab", () => {
+  it.skip("check account tab", () => {
     var explorePage = loggedInPage.replace(
       /:$/,
       "P0_JOURNEY_USERNAME:cypresstestuser"
@@ -114,7 +114,7 @@ context("App 200 page 1", () => {
     cy.get("#JourneyProfile").should("contain", "cypress");
   });
 
-  it.skip("like a post", () => {
+  /*it.skip("like a post", () => {
     cy.visit(loggedInPage);
     cy.wait(2000);
     cy.get("#mdc-tab-1").click();
@@ -233,5 +233,5 @@ context("App 200 page 1", () => {
           .to.be.a("string")
           .and.to.equal(actionName);
       });
-  });
+  });*/
 });

@@ -15,14 +15,14 @@ context("App 200 onboarding", () => {
     cy.viewport(375, 812);
   });
 
-  it("complete questionnaire", () => {
+  it.skip("complete questionnaire", () => {
     cy.intercept("POST", "/ords/wwv_flow.ajax").as("next");
     cy.url().should("contain", "200:10:");
 
-    cy.get("[data-cy=tell_us_about_yourselfButton]")
-      .click()
-      .wait("@next");
+    cy.get("[data-cy=tell_us_about_yourselfButton]").click();
+    //.wait("@next");
 
+    cy.pause();
     cy.get("#P10_QUESTION").should(
       "contain",
       "What type of area do you live in?"
