@@ -64,6 +64,14 @@ context("App 200 login test", () => {
           console.log("url before sign in", url);
         });
       cy.getCy("sign_inButton").click();
+      // the user can close the login error alert
+      cy.get(".mdc-snackbar--open")
+        .should("be.visible")
+        .should("contain.text", "Invalid Login")
+        .find('button.e-Notification--close.mdc-icon-button')
+        .click();
+      // the login error disappears when users clicked the close button
+      cy.get(".mdc-snackbar--open").should("not.exist");
       //cy.wait("@login");
 
       // the url changes
@@ -76,8 +84,6 @@ context("App 200 login test", () => {
       //  // and instead is sends error message id
       //  .and("include", "notification_msg");
       //
-      // the user can close the login error alert
-      cy.contains(".mdc-snackbar__label", "Invalid Login").should("be.visible");
     });
   });
 
