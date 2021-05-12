@@ -48,7 +48,7 @@ context("App 200 login test", () => {
       cy.get(".apex-logo-img").should("exist");
     });
 
-    it.only("wrong password", () => {
+    it("wrong password", () => {
       const badPassword = "blerg";
       cy.getCy("password")
         .clear()
@@ -64,24 +64,14 @@ context("App 200 login test", () => {
           console.log("url before sign in", url);
         });
       cy.getCy("sign_inButton").click();
-      //cy.wait("@login");
-
-      // the url changes
-      //cy.url()
-      //  .should("contain", ":9999:")
-      //  .then($url => {
-      //    cy.visit($url.replace("/__/", "/ords/")); //necessary due to #redirectmalfunction
-      //  });
-      //cy.url()
-      //  .should("not.include", "200:LOGIN")
-      //  // and instead is sends error message id
-      //  .and("include", "notification_msg");
-      //
       // the user can close the login error alert
-      //cy.contains(".mdc-snackbar__label", "Invalid Login").should("be.visible");
-      cy.contains(".mdc-snackbar__surface", "Invalid Login").should(
-        "be.visible"
-      );
+      cy.get(".mdc-snackbar--open")
+        .should("be.visible")
+        .should("contain.text", "Invalid Login")
+        .find("button.e-Notification--close.mdc-icon-button")
+        .click();
+      // the login error disappears when users clicked the close button
+      cy.get(".mdc-snackbar--open").should("not.exist");
     });
   });
 

@@ -19,11 +19,14 @@ context("App 200 page 1", () => {
     cy.viewport(375, 812);
   });
 
-  it.skip("create post", () => {
-    var explorePage = loggedInPage.replace(/:$/, "P0_STATE:ExploreTab");
+  it("create post", () => {
+    var explorePage = loggedInPage
+      .replace(/:$/, "P0_STATE:ExploreTab")
+      .replace(":10:", ":1:");
     cy.visit(explorePage).wait("@db");
     //cy.get("#MainNavigation #mdc-tab-2").click().wait('@db');
     cy.wait(2000);
+
     cy.get(
       ".demo-card__primary-action > .flex-column > .flex-row > .demo-card__title:first"
     ).click();
@@ -50,8 +53,10 @@ context("App 200 page 1", () => {
     cy.get(".e-FeedPost--like:first").should("have.class", "active");
   });
 
-  it.skip("check cap tab", () => {
-    var explorePage = loggedInPage.replace(/:$/, "P0_STATE:ExploreTab");
+  it("check cap tab", () => {
+    var explorePage = loggedInPage
+      .replace(/:$/, "P0_STATE:ExploreTab")
+      .replace(":10:", ":1:");
     cy.visit(explorePage);
     cy.wait(2000);
     cy.get(
@@ -64,7 +69,7 @@ context("App 200 page 1", () => {
       .type(deleteName);
     cy.get("#ActionExecuteMessage").should("have.value", deleteName);
     cy.get("#ActionExecutePublish").click();
-    cy.get(".mdc-snackbar__label").should("contain", "Thanks for sharing");
+    cy.get(".mdc-snackbar__label").should("contain", "Post added to feed");
     cy.wait(1000);
     cy.get("#mdc-tab-3").click();
     cy.wait(1000);
@@ -72,8 +77,10 @@ context("App 200 page 1", () => {
     cy.get("[data-cy=finalize_dayButton]").should("contain", "Finalize day");
   });
 
-  it.skip("check healer board", () => {
-    var explorePage = loggedInPage.replace(/:$/, "P0_STATE:ExploreTab");
+  it("check healer board", () => {
+    var explorePage = loggedInPage
+      .replace(/:$/, "P0_STATE:ExploreTab")
+      .replace(":10:", ":1:");
     cy.visit(explorePage);
     cy.wait(2000);
     cy.get(
@@ -86,7 +93,7 @@ context("App 200 page 1", () => {
       .type(deleteName);
     cy.get("#ActionExecuteMessage").should("have.value", deleteName);
     cy.get("#ActionExecutePublish").click();
-    cy.get(".mdc-snackbar__label").should("contain", "Thanks for sharing");
+    cy.get(".mdc-snackbar__label").should("contain", "Post added to feed");
     cy.wait(1000);
     cy.get("#mdc-tab-4").click();
     cy.url().should("contain", ":20:");
@@ -104,7 +111,7 @@ context("App 200 page 1", () => {
     //cy.get("#FeedPostComments").should("contain", deleteName);
   });
 
-  it.skip("check account tab", () => {
+  it("check account tab", () => {
     var explorePage = loggedInPage.replace(
       /:$/,
       "P0_JOURNEY_USERNAME:cypresstestuser"

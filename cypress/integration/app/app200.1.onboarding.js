@@ -15,14 +15,16 @@ context("App 200 onboarding", () => {
     cy.viewport(375, 812);
   });
 
-  it.skip("complete questionnaire", () => {
+  it("complete questionnaire", () => {
     cy.intercept("POST", "/ords/wwv_flow.ajax").as("next");
-    cy.url().should("contain", "200:10:");
+    cy.url()
+      .should("contain", "200:10:")
+      .wait(1000);
 
-    cy.get("[data-cy=tell_us_about_yourselfButton]").click();
-    //.wait("@next");
+    cy.get("[data-cy=tell_us_about_yourselfButton]")
+      .click()
+      .wait("@next");
 
-    cy.pause();
     cy.get("#P10_QUESTION").should(
       "contain",
       "What type of area do you live in?"
@@ -137,7 +139,8 @@ context("App 200 onboarding", () => {
       "contain",
       "We Recommend"
     );
-    cy.get("[data-cy=start_the_healingButton]")
+
+    /*cy.get("[data-cy=start_the_healingButton]")
       .click()
       .wait("@next");
     cy.url().should("contain", "200:50:");
@@ -149,6 +152,6 @@ context("App 200 onboarding", () => {
     cy.get(".introjs-nextbutton")
       .click()
       .wait("@next");
-    cy.get(".introjs-skipbutton").click();
+    cy.get(".introjs-skipbutton").click();*/
   });
 });
