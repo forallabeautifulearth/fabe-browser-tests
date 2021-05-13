@@ -72,6 +72,7 @@ context("App 200 login test", () => {
         .click();
       // the login error disappears when users clicked the close button
       cy.get(".mdc-snackbar--open").should("not.exist");
+      // trying to resolve conflict
     });
   });
 
