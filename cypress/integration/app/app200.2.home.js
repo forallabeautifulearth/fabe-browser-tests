@@ -74,7 +74,7 @@ context("App 200 page 1", () => {
     cy.get("#mdc-tab-3").click();
     cy.wait(1000);
     //cy.get('#CapTabChallenges').should("contain","You've completed");
-    cy.get("[data-cy=finalize_dayButton]").should("contain", "Finalize day");
+    //cy.get("[data-cy=finalize_dayButton]").should("contain", "Finalize day");
   });
 
   it("check healer board", () => {
@@ -94,12 +94,12 @@ context("App 200 page 1", () => {
     cy.get("#ActionExecuteMessage").should("have.value", deleteName);
     cy.get("#ActionExecutePublish").click();
     cy.get(".mdc-snackbar__label").should("contain", "Post added to feed");
-    cy.wait(1000);
-    cy.get("#mdc-tab-4").click();
+    cy.wait(2000);
+    cy.get("#mdc-tab-6").click();
     cy.url().should("contain", ":20:");
     cy.wait(500);
     cy.get("#LeaderboardData").click();
-    //cy.url().should("contain","cypresstestuser");
+    cy.url().should("contain", "cypresstestuser");
     //cy.get(".e-FeedPost--comment:first").click({ force: true });
     //cy.url().should("contain", "P0_FEED_POST_ID");
     //cy.get("#AddFeedPostCommentMessage")

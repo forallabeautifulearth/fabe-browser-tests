@@ -1,6 +1,7 @@
 context("App 200 onboarding", () => {
   const deleteSeq = Cypress._.random(1e6, 2e6).toString();
   const deleteName = `Delete me (test ${deleteSeq})`;
+  const waitTime = 1000;
   /**
    * Confirms that there are actions and click on the first one.
    * Confirms that the action is displayed after clicking.
@@ -19,11 +20,11 @@ context("App 200 onboarding", () => {
     cy.intercept("POST", "/ords/wwv_flow.ajax").as("next");
     cy.url()
       .should("contain", "200:10:")
-      .wait(1000);
+      .wait(waitTime);
 
     cy.get("[data-cy=tell_us_about_yourselfButton]")
       .click()
-      .wait("@next");
+      .wait(waitTime);
 
     cy.get("#P10_QUESTION").should(
       "contain",
@@ -31,7 +32,7 @@ context("App 200 onboarding", () => {
     );
     cy.get(".fabe-answer-pill:first")
       .click()
-      .wait("@next");
+      .wait(waitTime);
     cy.get("[data-cy=nextButton]")
       .click()
       .wait("@next");
