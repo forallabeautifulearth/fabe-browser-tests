@@ -35,16 +35,16 @@ context("App 200 login test", () => {
         .should("have.value", pPassword);
       cy.getCy("sign_inButton").click();
       //cy.wait(["@login"]);
-      cy.url().should("contain", ":10:")
-      .then($url => {
-        cy.visit($url.replace("/__/", "/ords/")); //necessary due to #redirectmalfunction
-      });
+      //cy.url()
+      //  .should("contain", ":10:")
+      //  .then($url => {
+      //    cy.visit($url.replace("/__/", "/ords/")); //necessary due to #redirectmalfunction
+      //  });
       cy.wait(500);
-      cy.get('[data-cy=back_to_evryButton]').click()
+      cy.get("[data-cy=back_to_evryButton]").click();
 
-      
-      cy.url().should("contain", ":50:");
-      
+      //cy.url().should("contain", ":50:");
+
       cy.get(".apex-logo-img").should("exist");
     });
 
@@ -68,22 +68,11 @@ context("App 200 login test", () => {
       cy.get(".mdc-snackbar--open")
         .should("be.visible")
         .should("contain.text", "Invalid Login")
-        .find('button.e-Notification--close.mdc-icon-button')
+        .find("button.e-Notification--close.mdc-icon-button")
         .click();
       // the login error disappears when users clicked the close button
       cy.get(".mdc-snackbar--open").should("not.exist");
-      //cy.wait("@login");
-
-      // the url changes
-      cy.url().should("contain", ":9999:")
-      .then($url => {
-        cy.visit($url.replace("/__/", "/ords/")); //necessary due to #redirectmalfunction
-      });
-      //cy.url()
-      //  .should("not.include", "200:LOGIN")
-      //  // and instead is sends error message id
-      //  .and("include", "notification_msg");
-      //
+      // trying to resolve conflict
     });
   });
 

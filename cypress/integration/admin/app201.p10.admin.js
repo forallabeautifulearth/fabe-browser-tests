@@ -11,8 +11,6 @@ context("App 201 (Admin) p10 - Action Categories", () => {
     cy.openCreateModal();
     cy.get("iframe").then(function($iframe) {
       const $body = $iframe.contents().find("body");
-      const cyDom = cy.wrap($body);
-      cyDom.find("#P11_SEQUENCE").type(deleteSeq);
       const cyDom1 = cy.wrap($body);
       cyDom1.find("#P11_NAME").type(deleteName);
       const cyDom2 = cy.wrap($body);

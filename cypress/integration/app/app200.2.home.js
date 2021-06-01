@@ -19,11 +19,14 @@ context("App 200 page 1", () => {
     cy.viewport(375, 812);
   });
 
-  it.only("create post", () => {
-    var explorePage = loggedInPage.replace(/:$/, "P0_STATE:ExploreTab");
+  it("create post", () => {
+    var explorePage = loggedInPage
+      .replace(/:$/, "P0_STATE:ExploreTab")
+      .replace(":10:", ":1:");
     cy.visit(explorePage).wait("@db");
     //cy.get("#MainNavigation #mdc-tab-2").click().wait('@db');
     cy.wait(2000);
+
     cy.get(
       ".demo-card__primary-action > .flex-column > .flex-row > .demo-card__title:first"
     ).click();
@@ -51,7 +54,9 @@ context("App 200 page 1", () => {
   });
 
   it("check cap tab", () => {
-    var explorePage = loggedInPage.replace(/:$/, "P0_STATE:ExploreTab");
+    var explorePage = loggedInPage
+      .replace(/:$/, "P0_STATE:ExploreTab")
+      .replace(":10:", ":1:");
     cy.visit(explorePage);
     cy.wait(2000);
     cy.get(
@@ -64,16 +69,18 @@ context("App 200 page 1", () => {
       .type(deleteName);
     cy.get("#ActionExecuteMessage").should("have.value", deleteName);
     cy.get("#ActionExecutePublish").click();
-    cy.get(".mdc-snackbar__label").should("contain", "Thanks for sharing");
+    cy.get(".mdc-snackbar__label").should("contain", "Post added to feed");
     cy.wait(1000);
     cy.get("#mdc-tab-3").click();
     cy.wait(1000);
     //cy.get('#CapTabChallenges').should("contain","You've completed");
-    cy.get("[data-cy=finalize_dayButton]").should("contain", "Finalize day");
+    //cy.get("[data-cy=finalize_dayButton]").should("contain", "Finalize day");
   });
 
   it("check healer board", () => {
-    var explorePage = loggedInPage.replace(/:$/, "P0_STATE:ExploreTab");
+    var explorePage = loggedInPage
+      .replace(/:$/, "P0_STATE:ExploreTab")
+      .replace(":10:", ":1:");
     cy.visit(explorePage);
     cy.wait(2000);
     cy.get(
@@ -86,13 +93,13 @@ context("App 200 page 1", () => {
       .type(deleteName);
     cy.get("#ActionExecuteMessage").should("have.value", deleteName);
     cy.get("#ActionExecutePublish").click();
-    cy.get(".mdc-snackbar__label").should("contain", "Thanks for sharing");
-    cy.wait(1000);
-    cy.get("#mdc-tab-4").click();
+    cy.get(".mdc-snackbar__label").should("contain", "Post added to feed");
+    cy.wait(2000);
+    cy.get("#mdc-tab-6").click();
     cy.url().should("contain", ":20:");
     cy.wait(500);
     cy.get("#LeaderboardData").click();
-    //cy.url().should("contain","cypresstestuser");
+    cy.url().should("contain", "cypresstestuser");
     //cy.get(".e-FeedPost--comment:first").click({ force: true });
     //cy.url().should("contain", "P0_FEED_POST_ID");
     //cy.get("#AddFeedPostCommentMessage")
@@ -114,7 +121,7 @@ context("App 200 page 1", () => {
     cy.get("#JourneyProfile").should("contain", "cypress");
   });
 
-  it.skip("like a post", () => {
+  /*it.skip("like a post", () => {
     cy.visit(loggedInPage);
     cy.wait(2000);
     cy.get("#mdc-tab-1").click();
@@ -233,5 +240,5 @@ context("App 200 page 1", () => {
           .to.be.a("string")
           .and.to.equal(actionName);
       });
-  });
+  });*/
 });
